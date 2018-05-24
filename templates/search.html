@@ -1,0 +1,32 @@
+{% extends "base.html"%} {% block content %}
+
+<div class="container-full-bg">
+  <div class="jumbotron ">
+    <div class="container">
+      <div class="row recipe-page text-center">
+        <div class="col-lg-12 ">
+          <h1 class="text-uppercase">
+            <strong>Search Recipes</strong>
+          </h1>
+          <hr class="light">
+        </div>
+        <div class="col-12">
+          <form class="needs-validation" method="POST" novalidate>
+            <div class="form-row">
+              <div class="col-12">
+                <input name="search" type="text" class="form-control" placeholder="Search Recipes...">
+              </div>
+            </div>
+            <div class="row search-row">
+              <div class="col-12">
+                <button class="btn btn-success btn-l" type="submit" name="searchBtn">Search</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
