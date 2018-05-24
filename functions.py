@@ -1,4 +1,4 @@
-def getPages(count, limit):
+def get_pages(count, limit):
     #Get Number of Pages to Paginate
     pages = count / limit
     if count % limit > 0:
@@ -7,10 +7,11 @@ def getPages(count, limit):
             return pages
         else:
             pages += 2
+            return pages
     else:
         return pages
 
-def generatePaginationLinks(offset, limit, pages, webpage, search):
+def generate_pagination_links(offset, limit, pages, webpage, search):
     #Generates Pagination Links
     if webpage == 'search':
         url_list = ['/' + webpage + '/' + search  + '?limit=' + str(limit) + '&offset=0']

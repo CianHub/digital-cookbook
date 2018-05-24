@@ -5,7 +5,7 @@ from bson.objectid import ObjectId
 from bson import SON
 from pprint import pprint
 from pymongo import ASCENDING, TEXT, DESCENDING
-from functions import getPages, generatePaginationLinks
+from functions import get_pages, generate_pagination_links
 
 app = Flask(__name__)
 
@@ -38,8 +38,8 @@ def recipes():
         count = len(count_list)
     
     #Get Pages And Generate URL List
-    pages = getPages(count, limit)
-    url_list = generatePaginationLinks(offset, limit, pages, 'recipes', 'null')
+    pages = get_pages(count, limit)
+    url_list = generate_pagination_links(offset, limit, pages, 'recipes', 'null')
     print(url_list)
     
     #Get _id of Last Item on a Page
