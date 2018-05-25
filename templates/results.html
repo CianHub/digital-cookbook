@@ -6,10 +6,11 @@
             <div class="row recipe-page">
                 <div class="col-lg-12 ">
                     <h1 class="text-uppercase">
-                        <strong>Recipes</strong>
+                        <strong>Search Results For "{{search}}" ({{count}} {%if count == 1%}Result Found{%else%}Results Found{%endif%})</strong>
                     </h1>
                 </div>
             </div>
+          
             <table class="table  table-responsive" id='sortDefault'>
                 <thead>
                     <tr>
@@ -32,8 +33,7 @@
                         <td>{{recipe.author}}</td>
                         <td><a class="btn btn-success" href=""> View Recipe</a>
                         </td>
-                        <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"> Edit Recipe</a>
-
+                        <td><a class="btn btn-info" href=""> Edit Recipe</a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -62,9 +62,8 @@
                         <td>{{recipe.author}}</td>
                         <td><a class="btn btn-success" href=""> View Recipe</a>
                         </td>
-
-                        <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"> Edit Recipe</a>
-
+                        <td><a class="btn btn-info" href=""> Edit Recipe</a>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -92,10 +91,7 @@
                         <td>{{recipe.author}}</td>
                         <td><a class="btn btn-success" href=""> View Recipe</a>
                         </td>
-
-                        <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"> Edit Recipe</a>
-
-
+                        <td><a class="btn btn-info" href=""> Edit Recipe</a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -123,10 +119,7 @@
                         <td>{{recipe.author}}</td>
                         <td><a class="btn btn-success" href=""> View Recipe</a>
                         </td>
-
-                        <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"> Edit Recipe</a>
-
-
+                        <td><a class="btn btn-info" href=""> Edit Recipe</a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -154,10 +147,7 @@
                         <td>{{recipe.author}}</td>
                         <td><a class="btn btn-success" href=""> View Recipe</a>
                         </td>
-
-                        <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"> Edit Recipe</a>
-
-
+                        <td><a class="btn btn-info" href=""> Edit Recipe</a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -185,9 +175,7 @@
                         <td>{{recipe.author}}</td>
                         <td><a class="btn btn-success" href=""> View Recipe</a>
                         </td>
-
-                        <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"> Edit Recipe</a>
-
+                        <td><a class="btn btn-info" href=""> Edit Recipe</a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -196,19 +184,15 @@
             <div class="row">
                 <div class="col-12">
                     {% for x in range(pages) %}
-                    <a class="btn btn-square btn-info" href="{{url_list[loop.index -1]}}" name="action">{{loop.index}}</a> 
-                    {%endfor%}
+                    <a class="btn btn-square btn-info" href="{{url_list[loop.index -1]}}" name="action">{{loop.index}}</a> {%endfor%}
                 </div>
 
             </div>
         </div>
-
-
-
     </div>
 </div>
-
 <script src="/static/js/jquery.js"></script>
 <script src="/static/js/sort_table.js"></script>
+
 
 {% endblock %}

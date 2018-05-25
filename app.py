@@ -64,6 +64,55 @@ def recipes():
     downvotes= sort_downvotes, country=sort_country, url_list=url_list, 
     pages=pages)
 
+@app.route('/search', methods=['GET','POST'])
+def search():
+    #Search User Input
+        if request.method == "POST":
+            return redirect('/' + 'search' + '/' + request.form["search"] + '?limit=10&offset=0')
+        return render_template("search.html")
+    
+@app.route('/search/<search>', methods=['GET','POST'] )
+def results(search):
+    
+    # Get All Recipes
+    recipes = mongo.db.recipes
+    found_recipes = recipes.find({"$text": {"$search": str(search)}})
+    
+    # Pagination Settings
+    limit = int(request.args.get('limit'))
+    offset = 0 
+    
+    #Get Count
+    count_list = []
+    for doc in found_recipes:
+        count_list.append(doc)
+        count = len(count_list)
+    
+    #If No Results Found
+    if len(count_list) < 1:
+        return render_template('noresults.html')
+    
+    #Get Pages And Generate URL List
+    pages = get_pages(count, limit)
+    url_list = generate_pagination_links(offset, limit, pages, 'search', search)
+
+    #Get _id of Last Item on a Page
+    dynamic_position = request.args.get('offset')
+    starting_id = recipes.find({"$text": {"$search": str(search)}}).sort('_id')
+    last_id = starting_id[int(dynamic_position)]['_id']
+    
+    #Sort Tables
+    sort_default = recipes.find({"$and":[{'_id':{'$gte' : last_id}},{"$text":{"$search": str(search)}}]}).limit(limit)
+    sort_country = recipes.find({"$and":[{'_id':{'$gte' : last_id}},{"$text":{"$search": str(search)}}]}).sort([("country",1),("name",1 )]).limit(limit)
+    sort_name = recipes.find({"$and":[{'_id':{'$gte' : last_id}},{"$text":{"$search": str(search)}}]}).sort([("name", 1)]).limit(limit)
+    sort_upvotes = recipes.find({"$and":[{'_id':{'$gte' : last_id}},{"$text":{"$search": str(search)}}]}).sort([("upvotes",
+    pymongo.DESCENDING),("name",1 )]).limit(limit)
+    sort_downvotes = recipes.find({"$and":[{'_id':{'$gte' : last_id}},{"$text":{"$search": str(search)}}]}).sort([("downvotes",pymongo.DESCENDING),("name",1 )]).limit(limit)
+    sort_author = recipes.find({"$and":[{'_id':{'$gte' : last_id}},{"$text":{"$search": str(search)}}]}).sort([("author",1),("name",1 )]).limit(limit)
+
+    return render_template("results.html", default=sort_default, count=count, 
+    url_list=url_list, pages=pages, search=search, country=sort_country, name=sort_name, 
+    upvotes=sort_upvotes, downvotes=sort_downvotes, author=sort_author)
 
 @app.route('/add_recipe')
 def add_recipe():
