@@ -7,7 +7,7 @@ from pprint import pprint
 from pymongo import ASCENDING
 from pymongo import DESCENDING
 from pymongo import TEXT
-from functions import get_pages, generate_pagination_links
+from functions import get_pages, generatePaginationLinks
 
 app = Flask(__name__)
 
@@ -41,7 +41,7 @@ def recipes():
     
     #Get Pages And Generate URL List
     pages = get_pages(count, limit)
-    url_list = generate_pagination_links(offset, limit, pages, 'recipes', 'null')
+    url_list = generatePaginationLinks(offset, limit, pages, 'recipes', 'null')
     print(url_list)
     
     #Get _id of Last Item on a Page
@@ -96,7 +96,7 @@ def results(search):
     
     #Get Pages And Generate URL List
     pages = get_pages(count, limit)
-    url_list = generate_pagination_links(offset, limit, pages, 'search', search)
+    url_list = generatePaginationLinks(offset, limit, pages, 'search', search)
 
     #Get _id of Last Item on a Page
     dynamic_position = request.args.get('offset')

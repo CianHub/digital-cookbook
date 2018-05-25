@@ -7,7 +7,6 @@ def get_pages(count, limit):
             return pages
         else:
             pages += 2
-            return pages
     else:
         return pages
 
