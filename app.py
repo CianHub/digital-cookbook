@@ -4,6 +4,7 @@ from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
 from bson import SON
 from pprint import pprint
+
 from pymongo import ASCENDING, TEXT, DESCENDING
 from functions import get_pages, generate_pagination_links
 
@@ -64,6 +65,68 @@ def recipes():
     downvotes= sort_downvotes, country=sort_country, url_list=url_list, 
     pages=pages)
 
+@app.route('/view_recipe/<recipe_id>', methods=['GET','POST'])
+def view_recipe(recipe_id):
+    #Get Recipes
+    recipes = mongo.db.recipes
+    
+    #Get Details of Selected Recipe
+    the_recipe = mongo.db.recipes.find_one({"_id":ObjectId(recipe_id)})
+    
+    #Store Details of Selected Recipe
+    current_recipe = []
+    for i in the_recipe:
+        current_recipe.append({i : the_recipe[i]})
+    current = sorted(current_recipe)
+    
+    #If a Button is Pressed
+    if request.method == "POST":
+        
+        #If Upvote
+        if request.form['vote'] == "upvote":
+            
+            #Increment Upvote
+            current[10]['upvotes'] += 1
+            
+            #Update Existing Attributes
+            recipes.update({'_id': ObjectId(recipe_id)},
+            {
+                'name': current[8]['name'],
+                'description': current[4]['description'],
+                'instructions': current[7]['instructions'],
+                'upvotes': current[10]['upvotes'],
+                'downvotes': current[5]["downvotes"],
+                'ingredients': current[6]['ingredients'],
+                'allergens': current[1]['allergens'],
+                'country': current[3]['country'],
+                'author': current[2]['author'],
+                'recipeID': current[9]["recipeID"]
+            })
+         
+        #If Downvote 
+        elif request.form['vote'] == "downvote":
+            
+            #Increment Downvote
+            current[5]['downvotes'] += 1
+            
+            #Update Existing Attributes
+            recipes.update({'_id': ObjectId(recipe_id)},
+            {
+                'name': current[8]['name'],
+                'description': current[4]['description'],
+                'instructions': current[7]['instructions'],
+                'upvotes': current[10]['upvotes'],
+                'downvotes': current[5]["downvotes"],
+                'ingredients': current[6]['ingredients'],
+                'allergens': current[1]['allergens'],
+                'country': current[3]['country'],
+                'author': current[2]['author'],
+                'recipeID': current[9]["recipeID"]
+            })
+         
+            
+    return render_template('view_recipe.html', recipe=the_recipe)
+    
 @app.route('/search', methods=['GET','POST'])
 def search():
     #Search User Input
