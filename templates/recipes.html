@@ -32,7 +32,8 @@
                         <td>{{recipe.author}}</td>
                         <td><a class="btn btn-success" href=""> View Recipe</a>
                         </td>
-                        <td><a class="btn btn-info" href=""> Edit Recipe</a>
+                        <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"> Edit Recipe</a>
+
                         </td>
                     </tr>
                     {% endfor %}
@@ -61,8 +62,9 @@
                         <td>{{recipe.author}}</td>
                         <td><a class="btn btn-success" href=""> View Recipe</a>
                         </td>
-                        <td><a class="btn btn-info" href=""> Edit Recipe</a>
-                        </td>
+
+                        <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"> Edit Recipe</a>
+
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -90,7 +92,10 @@
                         <td>{{recipe.author}}</td>
                         <td><a class="btn btn-success" href=""> View Recipe</a>
                         </td>
-                        <td><a class="btn btn-info" href=""> Edit Recipe</a>
+
+                        <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"> Edit Recipe</a>
+
+
                         </td>
                     </tr>
                     {% endfor %}
@@ -118,7 +123,10 @@
                         <td>{{recipe.author}}</td>
                         <td><a class="btn btn-success" href=""> View Recipe</a>
                         </td>
-                        <td><a class="btn btn-info" href=""> Edit Recipe</a>
+
+                        <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"> Edit Recipe</a>
+
+
                         </td>
                     </tr>
                     {% endfor %}
@@ -146,7 +154,10 @@
                         <td>{{recipe.author}}</td>
                         <td><a class="btn btn-success" href=""> View Recipe</a>
                         </td>
-                        <td><a class="btn btn-info" href=""> Edit Recipe</a>
+
+                        <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"> Edit Recipe</a>
+
+
                         </td>
                     </tr>
                     {% endfor %}
@@ -174,7 +185,9 @@
                         <td>{{recipe.author}}</td>
                         <td><a class="btn btn-success" href=""> View Recipe</a>
                         </td>
-                        <td><a class="btn btn-info" href=""> Edit Recipe</a>
+
+                        <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"> Edit Recipe</a>
+
                         </td>
                     </tr>
                     {% endfor %}
