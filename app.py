@@ -64,6 +64,47 @@ def recipes():
     downvotes= sort_downvotes, country=sort_country, url_list=url_list, 
     pages=pages)
 
+
+@app.route('/add_recipe')
+def add_recipe():
+    #Render Add Recipe Page
+    return render_template("add_recipe.html")
+ 
+@app.route('/insert_recipe', methods=['POST']) 
+def insert_recipe():
+    #Get Recipes
+    recipes = mongo.db.recipes
+    
+    #Merge Additional Instruction Fields
+    instructions = request.form.getlist('instruction2')
+    instructions.insert(0, request.form['instruction1'])
+    
+    #Merge Additional Ingredients Fields
+    ingredients = request.form.getlist('ingredient2')
+    ingredients.insert(0, request.form['ingredient1'])
+    
+    #Merge Additional Allergens Fields
+    allergens = request.form.getlist('allergen2')
+    if request.form['allergen1'] != '':
+        allergens.insert(0, request.form['allergen1'])
+    
+    #Insert New Recipe to Database
+    recipes.insert(
+        {
+        'name': request.form['name'],
+        'description': request.form['description'],
+        'instructions': instructions,
+        'upvotes': 0,
+        'downvotes': 0,
+        'ingredients': ingredients,
+        'allergens': allergens,
+        'country': request.form['country'],
+        'author': request.form['author'],
+        'recipeID': (recipes.count() + 1)
+        })
+    return redirect('/recipes?limit=10&offset=0')
+
+
 @app.route('/edit_recipe/<recipe_id>')
 def edit_recipe(recipe_id):
     #Get Details of Recipe
