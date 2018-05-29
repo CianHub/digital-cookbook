@@ -30,9 +30,9 @@
                         <td>{{recipe.downvotes}}</td>
                         <td>{{recipe.country}}</td>
                         <td>{{recipe.author}}</td>
-                        <td><a class="btn btn-success" href="{{url_for('view_recipe', recipe_id=recipe._id)}}"> View Recipe</a>
+                        <td><a class="btn btn-success" href="{{url_for('view_recipe', recipe_id=recipe.recipeID, username=username)}}"> View Recipe</a>
                         </td>
-                        <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"> Edit Recipe</a>
+                        <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe.recipeID, username=username)}}"> Edit Recipe</a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -59,9 +59,9 @@
                         <td>{{recipe.downvotes}}</td>
                         <td>{{recipe.country}}</td>
                         <td>{{recipe.author}}</td>
-                        <td><a class="btn btn-success" href="{{url_for('view_recipe', recipe_id=recipe._id)}}"> View Recipe</a>
+                        <td><a class="btn btn-success" href="{{url_for('view_recipe', recipe_id=recipe.recipeID, username=username)}}"> View Recipe</a>
                         </td>
-                        <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"> Edit Recipe</a>
+                        <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe.recipeID, username=username)}}"> Edit Recipe</a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -88,9 +88,9 @@
                         <td>{{recipe.downvotes}}</td>
                         <td>{{recipe.country}}</td>
                         <td>{{recipe.author}}</td>
-                        <td><a class="btn btn-success" href="{{url_for('view_recipe', recipe_id=recipe._id)}}"> View Recipe</a>
+                        <td><a class="btn btn-success" href="{{url_for('view_recipe', recipe_id=recipe.recipeID, username=username)}}"> View Recipe</a>
                         </td>
-                        <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"> Edit Recipe</a>
+                        <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe.recipeID, username=username)}}"> Edit Recipe</a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -116,9 +116,9 @@
                         <td>{{recipe.downvotes}}</td>
                         <td>{{recipe.country}}</td>
                         <td>{{recipe.author}}</td>
-                        <td><a class="btn btn-success" href="{{url_for('view_recipe', recipe_id=recipe._id)}}"> View Recipe</a>
+                        <td><a class="btn btn-success" href="{{url_for('view_recipe', recipe_id=recipe.recipeID, username=username)}}"> View Recipe</a>
                         </td>
-                        <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"> Edit Recipe</a>
+                        <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe.recipeID, username=username)}}"> Edit Recipe</a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -144,9 +144,9 @@
                         <td>{{recipe.downvotes}}</td>
                         <td>{{recipe.country}}</td>
                         <td>{{recipe.author}}</td>
-                        <td><a class="btn btn-success" href="{{url_for('view_recipe', recipe_id=recipe._id)}}"> View Recipe</a>
+                        <td><a class="btn btn-success" href="{{url_for('view_recipe', recipe_id=recipe.recipeID, username=username)}}"> View Recipe</a>
                         </td>
-                        <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"> Edit Recipe</a>
+                        <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe.recipeID, username=username)}}"> Edit Recipe</a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -172,9 +172,9 @@
                         <td>{{recipe.downvotes}}</td>
                         <td>{{recipe.country}}</td>
                         <td>{{recipe.author}}</td>
-                        <td><a class="btn btn-success" href="{{url_for('view_recipe', recipe_id=recipe._id)}}"> View Recipe</a>
+                        <td><a class="btn btn-success" href="{{url_for('view_recipe', recipe_id=recipe.recipeID, username=username)}}"> View Recipe</a>
                         </td>
-                        <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe._id)}}"> Edit Recipe</a>
+                        <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe.recipeID, username=username)}}"> Edit Recipe</a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -183,8 +183,7 @@
             <div class="row">
                 <div class="col-12">
                     {% for x in range(pages) %}
-                    <a class="btn btn-square btn-info" href="{{url_list[loop.index -1]}}" name="action">{{loop.index}}</a> 
-                    {%endfor%}
+                    <a class="btn btn-square btn-info" href="{{url_list[loop.index -1]}}" name="action">{{loop.index}}</a> {%endfor%}
                 </div>
 
             </div>

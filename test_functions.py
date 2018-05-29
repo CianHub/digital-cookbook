@@ -1,5 +1,5 @@
 import unittest
-from functions import get_pages, generate_pagination_links
+from functions import get_pages, generate_pagination_links, get_countries
 
 class test_functions(unittest.TestCase):
     # Test Suite #
@@ -15,16 +15,22 @@ class test_functions(unittest.TestCase):
     def test_get_pagination_links(self):
         # Test if function returns an array of urls for pagination buttons #
 
-        self.assertEqual(generate_pagination_links(0, 10, 3, 'recipes', 'null'),
-        ['/recipes?limit=10&offset=0','/recipes?limit=10&offset=10','/recipes?limit=10&offset=20','/recipes?limit=10&offset=30'])
+        self.assertEqual(generate_pagination_links(0, 10, 3, 'recipes', 'null', 'Paul'),
+        ['/Paul/recipes?limit=10&offset=0','/Paul/recipes?limit=10&offset=10','/Paul/recipes?limit=10&offset=20','/Paul/recipes?limit=10&offset=30'])
         
-        self.assertEqual(generate_pagination_links(0, 10, 3, 'search', 'chicken'),
-        ['/search/chicken?limit=10&offset=0','/search/chicken?limit=10&offset=10',
-        '/search/chicken?limit=10&offset=20','/search/chicken?limit=10&offset=30'])
+        self.assertEqual(generate_pagination_links(0, 10, 3, 'search', 'chicken', 'Paul'),
+        ['/Paul/search/chicken?limit=10&offset=0','/Paul/search/chicken?limit=10&offset=10',
+        '/Paul/search/chicken?limit=10&offset=20','/Paul/search/chicken?limit=10&offset=30'])
         
-        self.assertEqual(generate_pagination_links(0, 10, 4, 'search', 'chicken'),
-        ['/search/chicken?limit=10&offset=0','/search/chicken?limit=10&offset=10',
-        '/search/chicken?limit=10&offset=20','/search/chicken?limit=10&offset=30','/search/chicken?limit=10&offset=40'])
+        self.assertEqual(generate_pagination_links(0, 10, 4, 'search', 'chicken', 'Jim'),
+        ['/Jim/search/chicken?limit=10&offset=0','/Jim/search/chicken?limit=10&offset=10',
+        '/Jim/search/chicken?limit=10&offset=20','/Jim/search/chicken?limit=10&offset=30','/Jim/search/chicken?limit=10&offset=40'])
         
-        assert type(generate_pagination_links(0, 10, 3, 'recipes', 'null')) is list
+        assert type(generate_pagination_links(0, 10, 3, 'recipes', 'null','Kim')) is list
+    
+    def test_get_counties(self):
+        # Test if function returns an array of countries  #
+        
+        assert type(get_countries()) is list
+        
         

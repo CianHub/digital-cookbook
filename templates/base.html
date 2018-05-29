@@ -2,7 +2,6 @@
 <html>
 
 <head>
-  
   <!-- CSS -->
   <link rel="stylesheet" href="/static/css/bootstrap.css" />
   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -25,7 +24,6 @@
   <title>Digital Cookbook</title>
 </head>
 
-<body>
   <body>
 
     <!-- Navigation -->
@@ -37,14 +35,17 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="/recipes?limit=10&offset=0">View Recipes</a>
+             <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/{{username}}/search/{{username}}?limit=10&offset=0">My Recipes</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="{{url_for('add_recipe')}}">Add Recipe</a>
+              <a class="nav-link js-scroll-trigger" href="/{{username}}/recipes?limit=10&offset=0">View Recipes</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="{{url_for('search')}}">Search</a>
+              <a class="nav-link js-scroll-trigger" href="{{url_for('add_recipe', username=username)}}">Add Recipe</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="{{url_for('search', username=username)}}">Search</a>
             </li>
           </ul>
         </div>

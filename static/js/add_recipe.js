@@ -67,4 +67,7 @@
         if (y < 2) {
             $("#ing-remove").css("display", "none");
         }
+        
+    
+    
     }

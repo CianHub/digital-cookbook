@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, redirect, request, url_for, jsonify
+from flask import Flask, render_template, redirect, request, url_for, jsonify, flash
 from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
 from bson import SON
@@ -7,23 +7,47 @@ from pprint import pprint
 from pymongo import ASCENDING
 from pymongo import DESCENDING
 from pymongo import TEXT
-from functions import get_pages, generate_pagination_links
+from functions import get_pages, generate_pagination_links, get_countries
+from flask_wtf import FlaskForm, Form
+from wtforms import  TextField, SelectField, TextAreaField, validators, StringField, SubmitField
 
 app = Flask(__name__)
+app.secret_key = 'some_secret'
 
 app.config["MONGO_DBNAME"] = 'cookbookdatabase'
 app.config["MONGO_URI"] ="mongodb://admin:Komplete8@ds119150.mlab.com:19150/cookbookdatabase"
-#os.getenv("MONGO_URI")
 
 mongo = PyMongo(app)
 
-@app.route('/')
-def index():
-    #Render Index Page
-    return render_template("index.html")
+country_list = get_countries()
+
+class ReusableForm(Form):
     
-@app.route('/recipes')
-def recipes():
+    #Set up form
+    
+    name = TextField('Recipe Name:', validators=[validators.DataRequired("*Required")])
+    description = TextField('Description:', validators=[validators.DataRequired("*Required")])
+    author = TextField('Author:', validators=[validators.DataRequired("*Required")])
+    instruction1 = TextField('Step 1:', validators=[validators.DataRequired("*Required")])
+    
+    ingredient1 = TextField( validators=[validators.DataRequired("*Required")])
+    country = SelectField('Country of Origin', choices=country_list , validators=[validators.DataRequired()])
+
+class Username(Form):
+    #Set up form
+    username = TextField('Username:', validators=[validators.DataRequired("*Required")])
+
+@app.route('/', methods=['GET','POST'])
+def index():
+    #Username form
+    wtform = Username(request.form)
+    if wtform.validate():
+        return redirect('/' + request.form['username'] + '/recipes?limit=10&offset=0')
+    
+    return render_template("index.html", form=wtform)
+    
+@app.route('/<username>/recipes')
+def recipes(username):
     
     # Get All Recipes
     recipes = mongo.db.recipes
@@ -41,7 +65,7 @@ def recipes():
     
     #Get Pages And Generate URL List
     pages = get_pages(count, limit)
-    url_list = generate_pagination_links(offset, limit, pages, 'recipes', 'null')
+    url_list = generate_pagination_links(offset, limit, pages, 'recipes', 'null', username)
     print(url_list)
     
     #Get _id of Last Item on a Page
@@ -64,17 +88,17 @@ def recipes():
     return render_template("recipes.html", author=sort_author, 
     default=sort_default, name=sort_name, upvotes=sort_upvotes, 
     downvotes= sort_downvotes, country=sort_country, url_list=url_list, 
-    pages=pages)
+    pages=pages, username=username)
 
-@app.route('/search', methods=['GET','POST'])
-def search():
+@app.route('/<username>/search', methods=['GET','POST'])
+def search(username):
     #Search User Input
         if request.method == "POST":
-            return redirect('/' + 'search' + '/' + request.form["search"] + '?limit=10&offset=0')
-        return render_template("search.html")
+            return redirect('/' + username + '/' + 'search' + '/' + request.form["search"] + '?limit=10&offset=0')
+        return render_template("search.html", username=username)
     
-@app.route('/search/<search>', methods=['GET','POST'] )
-def results(search):
+@app.route('/<username>/search/<search>', methods=['GET','POST'] )
+def results(username, search):
     
     # Get All Recipes
     recipes = mongo.db.recipes
@@ -92,11 +116,11 @@ def results(search):
     
     #If No Results Found
     if len(count_list) < 1:
-        return render_template('noresults.html')
+        return render_template('noresults.html', username=username)
     
     #Get Pages And Generate URL List
     pages = get_pages(count, limit)
-    url_list = generate_pagination_links(offset, limit, pages, 'search', search)
+    url_list = generate_pagination_links(offset, limit, pages, 'search', search, username)
 
     #Get _id of Last Item on a Page
     dynamic_position = request.args.get('offset')
@@ -114,33 +138,33 @@ def results(search):
 
     return render_template("results.html", default=sort_default, count=count, 
     url_list=url_list, pages=pages, search=search, country=sort_country, name=sort_name, 
-    upvotes=sort_upvotes, downvotes=sort_downvotes, author=sort_author)
+    upvotes=sort_upvotes, downvotes=sort_downvotes, author=sort_author, username=username)
 
-@app.route('/add_recipe')
-def add_recipe():
-    #Render Add Recipe Page
-    return render_template("add_recipe.html")
- 
-@app.route('/insert_recipe', methods=['POST']) 
-def insert_recipe():
-    #Get Recipes
-    recipes = mongo.db.recipes
+@app.route('/<username>/add_recipe',methods=['GET','POST']  )
+def add_recipe(username):
+   #Load form
+    wtform = ReusableForm(request.form)
     
-    #Merge Additional Instruction Fields
-    instructions = request.form.getlist('instruction2')
-    instructions.insert(0, request.form['instruction1'])
+    if wtform.validate():
+        #Get Recipes
+        recipes = mongo.db.recipes
     
-    #Merge Additional Ingredients Fields
-    ingredients = request.form.getlist('ingredient2')
-    ingredients.insert(0, request.form['ingredient1'])
+        #Merge Additional Instruction Fields
+        instructions = request.form.getlist('instruction2')
+        instructions.insert(0, request.form['instruction1'])
     
-    #Merge Additional Allergens Fields
-    allergens = request.form.getlist('allergen2')
-    if request.form['allergen1'] != '':
-        allergens.insert(0, request.form['allergen1'])
+        #Merge Additional Ingredients Fields
+        ingredients = request.form.getlist('ingredient2')
+        ingredients.insert(0, request.form['ingredient1'])
     
-    #Insert New Recipe to Database
-    recipes.insert(
+        #Merge Additional Allergens Fields
+        allergens = request.form.getlist('allergen2')
+        if request.form['allergen1'] != '':
+            allergens.insert(0, request.form['allergen1'])
+
+        
+        #Insert New Recipe to Database
+        recipes.insert(
         {
         'name': request.form['name'],
         'description': request.form['description'],
@@ -153,29 +177,72 @@ def insert_recipe():
         'author': request.form['author'],
         'recipeID': (recipes.count() + 1)
         })
-    return redirect('/recipes?limit=10&offset=0')
+        return redirect('/recipes?limit=10&offset=0')
 
-@app.route('/edit_recipe/<recipe_id>')
-def edit_recipe(recipe_id):
-    #Get Details of Recipe
-    the_recipe = mongo.db.recipes.find_one({"_id":ObjectId(recipe_id)})
+    #Render Add Recipe Page
+    return render_template("add_recipe.html", form=wtform, errors=wtform.errors, username=username)
+ 
+@app.route('/<username>/edit_recipe/<recipe_id>', methods=["GET",'POST'])
+def edit_recipe(username, recipe_id):
+    #Load form
+    wtform = ReusableForm(request.form)
     
-    return render_template('edit_recipe.html', recipe=the_recipe)
+    #Get Details of Recipe
+    the_recipe = mongo.db.recipes.find_one({"recipeID":int(recipe_id)})
+    
 
-@app.route('/view_recipe/<recipe_id>', methods=['GET','POST'])
-def view_recipe(recipe_id):
+    if wtform.validate():
+        #Get Recipes
+        recipes = mongo.db.recipes
+    
+        #Merge Additional Instruction Fields
+        instructions = request.form.getlist('instruction2')
+        instructions.insert(0, request.form['instruction1'])
+    
+        #Merge Additional Ingredients Fields
+        ingredients = request.form.getlist('ingredient2')
+        ingredients.insert(0, request.form['ingredient1'])
+    
+        #Merge Additional Allergens Fields
+        allergens = request.form.getlist('allergen2')
+    
+        #Carry Over Values for Non-Editable Attributes
+        found = []
+        cursor = recipes.find({ "recipeID": int(recipe_id)}, {"upvotes": 1, "downvotes": 1, '_id':1 })
+        for document in cursor:
+            found.append(document)
+    
+        #Update Existing Recipe
+        recipes.update({'_id': found[0]["_id"]},{
+            'name': request.form['name'],
+            'description': request.form['description'],
+            'instructions': instructions,
+            'upvotes': found[0]["upvotes"],
+            'downvotes': found[0]["downvotes"],
+            'ingredients': ingredients,
+            'allergens': allergens,
+            'country': request.form['country'],
+            'author': request.form['author'],
+            'recipeID': int(recipe_id)
+            })
+            
+        return redirect('/recipes?limit=10&offset=0')
+    
+    return render_template('edit_recipe.html', recipe=the_recipe,   form=wtform, username=username)
+ 
+@app.route('/<username>/view_recipe/<recipe_id>', methods=['GET','POST'])
+def view_recipe(username, recipe_id):
     #Get Recipes
     recipes = mongo.db.recipes
     
     #Get Details of Selected Recipe
-    the_recipe = mongo.db.recipes.find_one({"_id":ObjectId(recipe_id)})
+    the_recipe = mongo.db.recipes.find_one({"recipeID":int(recipe_id)})
     
     #Store Details of Selected Recipe
     current_recipe = []
     for i in the_recipe:
         current_recipe.append({i : the_recipe[i]})
-    current = sorted(current_recipe)
-    
+
     #If a Button is Pressed
     if request.method == "POST":
         
@@ -222,39 +289,7 @@ def view_recipe(recipe_id):
             })
          
             
-    return render_template('view_recipe.html', recipe=the_recipe)
-    
-@app.route('/update_recipe/<recipe_id>', methods=["POST"])
-def update_recipe(recipe_id):
-    #Get Recipes
-    recipes = mongo.db.recipes
-    
-    #Get Info For Instructions,Ingredients and Allerges
-    instructions = request.form.getlist('instruction2')
-    ingredients = request.form.getlist('ingredient2')
-    allergens = request.form.getlist('allergen2')
-    
-    #Carry Over Values for Non-Editable Attributes
-    found = []
-    cursor = recipes.find({ "_id": ObjectId(recipe_id)}, {"upvotes": 1, "downvotes": 1, "recipeID": 1 , '_id':0 })
-    for document in cursor:
-        found.append(document)
-    
-    #Update Existing Recipe
-    recipes.update({'_id': ObjectId(recipe_id)},{
-            'name': request.form['name'],
-            'description': request.form['description'],
-            'instructions': instructions,
-            'upvotes': found[0]["upvotes"],
-            'downvotes': found[0]["downvotes"],
-            'ingredients': ingredients,
-            'allergens': allergens,
-            'country': request.form['country'],
-            'author': request.form['author'],
-            'recipeID': found[0]["recipeID"]
-            })
-            
-    return redirect('/recipes?limit=10&offset=0')
+    return render_template('view_recipe.html', recipe=the_recipe, username=username) 
         
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
