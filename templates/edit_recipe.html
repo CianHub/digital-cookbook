@@ -15,13 +15,13 @@
 				{{ form.csrf_token }}
 				<div class="form-row">
 					<div class="col-md-6 mb-3">
-						{{ form.name.label }} {{ form.name(class_="form-control", placeholder="Recipe Name", type="text", id="validationCustom01", value= recipe.name.title()) }} {% for message in form.name.errors %}
+						{{ form.name.label }} {{ form.name(class_="form-control", placeholder="Recipe Name", type="text", id="validationCustom01", value= recipe.name.title(), autocomplete="off") }} {% for message in form.name.errors %}
 						<div class="invalid"> {{ message }}</div>
 						{% endfor %}
 
 					</div>
 					<div class="col-md-6 mb-3">
-						{{ form.description.label }} {{ form.description(class_="form-control",placeholder="Recipe Description", type="text", id="validationCustom02", value=recipe.description) }} {% for message in form.description.errors %}
+						{{ form.description.label }} {{ form.description(class_="form-control",placeholder="Recipe Description", type="text", id="validationCustom02", value=recipe.description, autocomplete="off") }} {% for message in form.description.errors %}
 						<div class="invalid"> {{ message }}</div>
 						{% endfor %}
 					</div>
@@ -32,7 +32,7 @@
 					{% for key in recipe.instructions %}
 					{% if key == recipe.instructions[0] %}
 					<div class="col-md-6 mb-3" id="ins{{loop.index}}">
-					{{ form.instruction1.label }} {{ form.instruction1(class_="form-control instructionClass",placeholder="Please Enter The Instructions One At A Time", type="text", id="validationCustom03", value=recipe.instructions[0]) }} 
+					{{ form.instruction1.label }} {{ form.instruction1(class_="form-control instructionClass",placeholder="Please Enter The Instructions One At A Time", type="text", id="validationCustom03", value=recipe.instructions[0], autocomplete="off") }} 
 					{% for message in form.instruction1.errors %}
                         <div class="invalid"> {{ message }}</div>
                     {% endfor %}
@@ -60,7 +60,7 @@
 					<div class="col-md-12"><label class="text-center">Allergens</label></div>
 					{% for key in recipe.allergens %}
 					<div class="col-md-6 mb-3" id="allerg{{loop.index}}">
-						<input name="allergen2" type="text" class="form-control allergenClass" id="validationCustom04" placeholder="Please Enter The Allergens One At A Time" value="{{key}}">
+						<input name="allergen2" type="text" class="form-control allergenClass" id="validationCustom04" placeholder="Please Enter The Allergens One At A Time" value="{{key}}", autocomplete="off">
 					</div>
 					{% endfor %}
 				</div>
@@ -79,7 +79,7 @@
 					{% for key in recipe.ingredients %}
 					<div class="col-md-6 mb-3" id="ingredient{{loop.index}}">
 						{% if key == recipe.ingredients[0] %}
-						{{ form.ingredient1(class_="form-control ingredientClass",placeholder="Please Enter The Ingredients One At A Time", type="text", id="validationCustom04", value=recipe.ingredients[0]) }} 
+						{{ form.ingredient1(class_="form-control ingredientClass",placeholder="Please Enter The Ingredients One At A Time", type="text", id="validationCustom04", value=recipe.ingredients[0], autocomplete="off") }} 
 						{% for message in form.ingredient1.errors %}
                         <div class="invalid"> {{ message }}</div>
                         {% endfor %}
@@ -104,7 +104,7 @@
 						{% endfor %}
 					</div>
 					<div class="col-md-6 mb-3">
-						{{ form.author.label }} {{ form.author(class_="form-control",placeholder="Author", type="text", id="validationCustom07", value=recipe.author) }} {% for message in form.author.errors %}
+						{{ form.author.label }} {{ form.author(class_="form-control",placeholder="Author", type="text", id="validationCustom07", value=recipe.author, autocomplete="off") }} {% for message in form.author.errors %}
 						<div class="invalid"> {{ message }}</div>
 						{% endfor %}
 					</div>

@@ -42,7 +42,7 @@
           <form class="needs-validation" method="POST">
             {{ form.csrf_token }}
             <div class="form-row">
-              {{ form.username(class_="form-control",placeholder="Please enter your username", type="text") }} 
+              {{ form.username(class_="form-control",placeholder="Please enter your username", type="text", autocomplete="off") }} 
               {% if message in form.username.errors %}
               <div class="invalid"> {{ message }}</div>
               {% endif %}

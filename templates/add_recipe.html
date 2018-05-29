@@ -16,13 +16,13 @@
 
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
-                        {{ form.name.label }} {{ form.name(class_="form-control",placeholder="Recipe Name", type="text", id="validationCustom01") }} 
+                        {{ form.name.label }} {{ form.name(class_="form-control",placeholder="Recipe Name", type="text", id="validationCustom01", autocomplete="off") }} 
                         {% for message in form.name.errors %}
                         <div class="invalid"> {{ message }}</div>
                         {% endfor %}
                     </div>
                     <div class="col-md-6 mb-3">
-                        {{ form.description.label }} {{ form.description(class_="form-control",placeholder="Recipe Description", type="text", id="validationCustom02") }} 
+                        {{ form.description.label }} {{ form.description(class_="form-control",placeholder="Recipe Description", type="text", id="validationCustom02", autocomplete="off") }} 
                         {% for message in form.description.errors %}
                         <div class="invalid"> {{ message }}</div>
                         {% endfor %}
@@ -31,7 +31,7 @@
                 <div class="form-row instructions">
                     <div class="col-md-12"><label class="text-center">Instructions</label></div>
                     <div class="col-md-6 mb-3" id="ins1">
-                        {{ form.instruction1.label }} {{ form.instruction1(class_="form-control instructionClass",placeholder="Please Enter The Instructions One At A Time", type="text", id="validationCustom03") }} 
+                        {{ form.instruction1.label }} {{ form.instruction1(class_="form-control instructionClass",placeholder="Please Enter The Instructions One At A Time", type="text", id="validationCustom03", autocomplete="off") }} 
                         
                         {% for message in form.instruction1.errors %}
                         <div class="invalid"> {{ message }}</div>
@@ -48,7 +48,7 @@
                 <div class="form-row allergens">
                     <div class="col-md-12"><label class="text-center">Allergens</label></div>
                     <div class="col-md-6 mb-3" id="allerg1">
-                        <input name="allergen1" type="text" class="form-control allergenClass" id="validationCustom04" placeholder="Please Enter Any Allergens One At A Time" value="">
+                        <input name="allergen1" type="text" class="form-control allergenClass" id="validationCustom04" placeholder="Please Enter Any Allergens One At A Time" value="" , autocomplete="off">
                     </div>
                 </div>
                 <div class="form-row">
@@ -59,7 +59,7 @@
                 <div class="form-row ingredients">
                     <div class="col-md-12"><label class="text-center">Ingredients</label></div>
                     <div class="col-md-6 mb-3" id="ingredient1">
-                        {{ form.ingredient1(class_="form-control ingredientClass",placeholder="Please Enter The Ingredients One At A Time", type="text", id="validationCustom04") }} {% for message in form.ingredient1.errors %}
+                        {{ form.ingredient1(class_="form-control ingredientClass",placeholder="Please Enter The Ingredients One At A Time", type="text", id="validationCustom04", autocomplete="off") }} {% for message in form.ingredient1.errors %}
                         <div class="invalid"> {{ message }}</div>
                         {% endfor %}
                     </div>
@@ -79,7 +79,7 @@
                         {% endfor %}
                     </div>
                     <div class="col-md-6 mb-3">
-                        {{ form.author.label }} {{ form.author(class_="form-control",placeholder="Author", type="text", id="validationCustom07", value=username) }} 
+                        {{ form.author.label }} {{ form.author(class_="form-control",placeholder="Author", type="text", id="validationCustom07", value=username, autocomplete="off") }} 
                         {% for message in form.author.errors %}
                         <div class="invalid"> {{ message }}</div>
                         {% endfor %}
