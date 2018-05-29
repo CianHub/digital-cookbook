@@ -179,7 +179,7 @@ def add_recipe(username):
         'author': request.form['author'],
         'recipeID': (recipes.count() + 1)
         })
-        return redirect('/recipes?limit=10&offset=0')
+        return redirect('/'+ username + '/recipes?limit=10&offset=0')
 
     #Render Add Recipe Page
     return render_template("add_recipe.html", form=wtform, errors=wtform.errors, username=username)
