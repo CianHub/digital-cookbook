@@ -10,6 +10,7 @@ The application has several features:
 2. Users can add their own recipes to the database.
 3. Users can edit existing recipes.
 4. Users can upvote or downvote recipes.
+5. Users can enter their username and view the recipes they have added.
 
 ## Technologies
 
@@ -30,8 +31,6 @@ To run tests, in the CLI enter:
 ```
 $ pip3 freeze --local > requirements.txt
 ```
-
-### Testing
 
 ## Deployment
 

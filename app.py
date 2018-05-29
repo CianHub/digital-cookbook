@@ -228,7 +228,7 @@ def edit_recipe(username, recipe_id):
             'recipeID': int(recipe_id)
             })
             
-        return redirect('/recipes?limit=10&offset=0')
+        return redirect('/'+ username + '/recipes?limit=10&offset=0')
     
     return render_template('edit_recipe.html', recipe=the_recipe,   form=wtform, username=username)
  
@@ -244,7 +244,8 @@ def view_recipe(username, recipe_id):
     current_recipe = []
     for i in the_recipe:
         current_recipe.append({i : the_recipe[i]})
-
+    current = sorted(current_recipe)
+    
     #If a Button is Pressed
     if request.method == "POST":
         
@@ -255,7 +256,7 @@ def view_recipe(username, recipe_id):
             current[10]['upvotes'] += 1
             
             #Update Existing Attributes
-            recipes.update({'_id': ObjectId(recipe_id)},
+            recipes.update({'_id': current[0]['_id'],},
             {
                 'name': current[8]['name'],
                 'description': current[4]['description'],
@@ -266,8 +267,9 @@ def view_recipe(username, recipe_id):
                 'allergens': current[1]['allergens'],
                 'country': current[3]['country'],
                 'author': current[2]['author'],
-                'recipeID': current[9]["recipeID"]
+                'recipeID': int(recipe_id)
             })
+            return redirect('/'+ username + '/recipes?limit=10&offset=0')
          
         #If Downvote 
         elif request.form['vote'] == "downvote":
@@ -276,7 +278,7 @@ def view_recipe(username, recipe_id):
             current[5]['downvotes'] += 1
             
             #Update Existing Attributes
-            recipes.update({'_id': ObjectId(recipe_id)},
+            recipes.update({'_id': current[0]['_id'],},
             {
                 'name': current[8]['name'],
                 'description': current[4]['description'],
@@ -287,8 +289,9 @@ def view_recipe(username, recipe_id):
                 'allergens': current[1]['allergens'],
                 'country': current[3]['country'],
                 'author': current[2]['author'],
-                'recipeID': current[9]["recipeID"]
+                'recipeID': int(recipe_id)
             })
+            return redirect('/'+ username + '/recipes?limit=10&offset=0')
          
             
     return render_template('view_recipe.html', recipe=the_recipe, username=username) 
