@@ -33,6 +33,10 @@ class Username(Form):
     #Set up form
     username = TextField('Username:', validators=[validators.DataRequired("*Required")])
 
+class Search(Form):
+    #Set up form
+    search = TextField('Search:', validators=[validators.DataRequired("*Required")])
+
 @app.route('/', methods=['GET','POST'])
 def index():
     #Username form
@@ -40,7 +44,7 @@ def index():
     if wtform.validate():
         return redirect('/' + request.form['username'] + '/recipes?limit=10&offset=0')
     
-    return render_template("index.html", form=wtform)
+    return render_template("index.html", form=wtform, errors=wtform.errors)
     
 @app.route('/<username>/recipes')
 def recipes(username):
@@ -89,12 +93,14 @@ def recipes(username):
 @app.route('/<username>/search', methods=['GET','POST'])
 def search(username):
     #Search User Input
-        if request.method == "POST":
+        wtform = Search(request.form)
+        if wtform.validate():
             return redirect('/' + username + '/' + 'search' + '/' + request.form["search"] + '?limit=10&offset=0')
-        return render_template("search.html", username=username)
+        return render_template("search.html", username=username, form=wtform, errors=wtform.errors )
     
 @app.route('/<username>/search/<search>', methods=['GET','POST'] )
 def results(username, search):
+    
     
     # Get All Recipes
     recipes = mongo.db.recipes
@@ -111,7 +117,7 @@ def results(username, search):
         count = len(count_list)
     
     #If No Results Found
-    if len(count_list) < 1:
+    if len(count_list) < 1 or not search:
         return render_template('noresults.html', username=username)
     
     #Get Pages And Generate URL List
