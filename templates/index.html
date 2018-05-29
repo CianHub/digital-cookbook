@@ -43,9 +43,9 @@
             {{ form.csrf_token }}
             <div class="form-row">
               {{ form.username(class_="form-control",placeholder="Please enter your username", type="text", autocomplete="off") }} 
-              {% if message in form.username.errors %}
+              {% for message in form.username.errors %}
               <div class="invalid"> {{ message }}</div>
-              {% endif %}
+              {% endfor %}
             </div>
             <br>
             <button class="btn btn-success btn-xl js-scroll-trigger" type=submit>Enter</button>

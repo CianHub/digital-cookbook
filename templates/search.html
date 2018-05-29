@@ -15,9 +15,9 @@
             {{ form.csrf_token }}
             <div class="form-row">
               <div class="col-12">
-                {{ form.search(class_="form-control",placeholder="Search Recipes...", type="text", autocomplete="off") }} {% if message in form.search.errors %}
+                {{ form.search(class_="form-control",placeholder="Search Recipes...", type="text", autocomplete="off") }} {% for message in form.search.errors %}
                 <div class="invalid"> {{ message }}</div>
-                {% endif %}
+                {% endfor %}
               </div>
             </div>
             <div class="row search-row">
