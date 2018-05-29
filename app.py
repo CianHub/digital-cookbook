@@ -4,9 +4,7 @@ from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
 from bson import SON
 from pprint import pprint
-from pymongo import ASCENDING
-from pymongo import DESCENDING
-from pymongo import TEXT
+from pymongo import ASCENDING, DESCENDING, TEXT
 from functions import get_pages, generate_pagination_links, get_countries
 from flask_wtf import FlaskForm, Form
 from wtforms import  TextField, SelectField, TextAreaField, validators, StringField, SubmitField
@@ -24,12 +22,10 @@ country_list = get_countries()
 class ReusableForm(Form):
     
     #Set up form
-    
     name = TextField('Recipe Name:', validators=[validators.DataRequired("*Required")])
     description = TextField('Description:', validators=[validators.DataRequired("*Required")])
     author = TextField('Author:', validators=[validators.DataRequired("*Required")])
     instruction1 = TextField('Step 1:', validators=[validators.DataRequired("*Required")])
-    
     ingredient1 = TextField( validators=[validators.DataRequired("*Required")])
     country = SelectField('Country of Origin', choices=country_list , validators=[validators.DataRequired()])
 

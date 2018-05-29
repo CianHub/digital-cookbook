@@ -28,7 +28,7 @@ The application was developed with MongoDB, Flask, Python3, HTML5, CSS3, JavaScr
 
 To run tests, in the CLI enter:
 ```
-$ python -m unittest discover
+$ pip3 freeze --local > requirements.txt
 ```
 
 ### Testing
