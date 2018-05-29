@@ -20,6 +20,7 @@
                         <th class="sortButton" onclick="sort_by_author()">Author <i class="fa fa-sort"></i></th>
                         <th></th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,6 +35,8 @@
                         </td>
                         <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe.recipeID, username=username)}}"> Edit Recipe</a>
                         </td>
+                        <td><a class="btn btn-danger" href="{{url_for('delete_recipe', recipe_id=recipe.recipeID, username=username)}}"> Delete Recipe</a>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -46,6 +49,7 @@
                         <th class="sortButton" onclick="sort_by_downvotes()">Downvotes <i class="fa fa-sort"></i></th>
                         <th class="sortButton" onclick="sort_by_country()">Country of Origin <i class="fa fa-sort"></i></th>
                         <th class="sortButton" onclick="sort_by_author()">Author <i class="fa fa-sort"></i></th>
+                        <th></th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -63,6 +67,8 @@
                         </td>
                         <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe.recipeID, username=username)}}"> Edit Recipe</a>
                         </td>
+                        <td><a class="btn btn-danger" href="{{url_for('delete_recipe', recipe_id=recipe.recipeID, username=username)}}"> Delete Recipe</a>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -75,6 +81,7 @@
                         <th class="sortButton" onclick="sort_by_downvotes()">Downvotes <i class="fa fa-sort"></i></th>
                         <th class="sortButton" onclick="sort_by_country()">Country of Origin <i class="fa fa-sort"></i></th>
                         <th class="sortButton" onclick="sort_by_author()">Author <i class="fa fa-sort"></i></th>
+                        <th></th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -92,6 +99,8 @@
                         </td>
                         <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe.recipeID, username=username)}}"> Edit Recipe</a>
                         </td>
+                        <td><a class="btn btn-danger" href="{{url_for('delete_recipe', recipe_id=recipe.recipeID, username=username)}}"> Delete Recipe</a>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -104,6 +113,7 @@
                         <th class="sortButton" onclick="sort_by_downvotes()">Downvotes <i class="fa fa-sort"></i></th>
                         <th class="sortButton" onclick="sort_by_country()">Country of Origin <i class="fa fa-sort"></i></th>
                         <th class="sortButton" onclick="sort_by_author()">Author <i class="fa fa-sort"></i></th>
+                        <th></th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -120,6 +130,8 @@
                         </td>
                         <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe.recipeID, username=username)}}"> Edit Recipe</a>
                         </td>
+                        <td><a class="btn btn-danger" href="{{url_for('delete_recipe', recipe_id=recipe.recipeID, username=username)}}"> Delete Recipe</a>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -132,6 +144,7 @@
                         <th class="sortButton" onclick="sort_by_downvotes()">Downvotes <i class="fa fa-sort"></i></th>
                         <th class="sortButton" onclick="sort_by_country()">Country of Origin <i class="fa fa-sort"></i></th>
                         <th class="sortButton" onclick="sort_by_author()">Author <i class="fa fa-sort"></i></th>
+                        <th></th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -148,6 +161,8 @@
                         </td>
                         <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe.recipeID, username=username)}}"> Edit Recipe</a>
                         </td>
+                        <td><a class="btn btn-danger" href="{{url_for('delete_recipe', recipe_id=recipe.recipeID, username=username)}}"> Delete Recipe</a>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -160,6 +175,7 @@
                         <th class="sortButton" onclick="sort_by_downvotes()">Downvotes <i class="fa fa-sort"></i></th>
                         <th class="sortButton" onclick="sort_by_country()">Country of Origin <i class="fa fa-sort"></i></th>
                         <th class="sortButton" onclick="sort_by_author()">Author <i class="fa fa-sort"></i></th>
+                        <th></th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -176,6 +192,8 @@
                         </td>
                         <td><a class="btn btn-info" href="{{url_for('edit_recipe', recipe_id=recipe.recipeID, username=username)}}"> Edit Recipe</a>
                         </td>
+                        <td><a class="btn btn-danger" href="{{url_for('delete_recipe', recipe_id=recipe.recipeID, username=username)}}"> Delete Recipe</a>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -188,9 +206,6 @@
 
             </div>
         </div>
-
-
-
     </div>
 </div>
 

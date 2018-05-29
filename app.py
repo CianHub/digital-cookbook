@@ -192,7 +192,6 @@ def edit_recipe(username, recipe_id):
     #Get Details of Recipe
     the_recipe = mongo.db.recipes.find_one({"recipeID":int(recipe_id)})
     
-
     if wtform.validate():
         #Get Recipes
         recipes = mongo.db.recipes
@@ -231,6 +230,12 @@ def edit_recipe(username, recipe_id):
         return redirect('/'+ username + '/recipes?limit=10&offset=0')
     
     return render_template('edit_recipe.html', recipe=the_recipe,   form=wtform, username=username)
+
+@app.route('/<username>/delete_recipe/<recipe_id>')
+def delete_recipe(username, recipe_id):
+    #Remove Recipe
+    mongo.db.recipes.remove({"recipeID":int(recipe_id)})
+    return redirect('/'+ username + '/recipes?limit=10&offset=0')
  
 @app.route('/<username>/view_recipe/<recipe_id>', methods=['GET','POST'])
 def view_recipe(username, recipe_id):
