@@ -150,6 +150,13 @@ def add_recipe(username):
         for doc in all_recipes:
             count_list.append(doc['recipeID'])
             sort_count_list = sorted(count_list)
+        
+        #Get The Recipe Names
+        name_list = []
+        for doc in all_recipes:
+            name_list.append(doc['name'])
+            sort_name_list = sorted(name_list)
+        
 
         #Merge Additional Instruction Fields
         instructions = request.form.getlist('instruction2')
@@ -249,20 +256,19 @@ def view_recipe(username, recipe_id):
     
     #Get Voting Details of Selected Recipe
     the_recipe_vote = mongo.db.recipes.find_one({"recipeID":int(recipe_id)}, { 'upvotes': 1, 'downvotes': 1 })
+    
+    #Store Voting Details of Selected Recipe
+    current = []
+    current.append(the_recipe_vote)
  
     #If a Button is Pressed
     if request.method == "POST":
-        
-        #Store Voting Details of Selected Recipe
-        current = the_recipe_vote[:]
-        """for i in the_recipe_vote:
-            current.append({i :the_recipe_vote[i]})"""
         
         #If Upvote
         if request.form['vote'] == "upvote":
             
             #Increment upvote
-            upvote = increment_field('upvotes', current)
+            upvote = current[0]['upvotes'] + 1
             
             #Update Field
             recipes.update({'recipeID': int(recipe_id) },{ '$set':{ 'upvotes' : upvote}})
@@ -273,7 +279,7 @@ def view_recipe(username, recipe_id):
         elif request.form['vote'] == "downvote":
             
             #Increment upvote
-            downvote = increment_field('downvotes', current)
+            downvote = current[0]['downvotes'] + 1
             
             #Update Field
             recipes.update( {'recipeID': int(recipe_id) }, { '$set': { 'downvotes' : downvote } } )

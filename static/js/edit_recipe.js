@@ -54,7 +54,7 @@
     function add_more_ingredients() {
         //When the add button is pressed add a field
         y++;
-        $(".ingredients").append("<br><div  class='col-md-6 mb-3' id='ing" + y + "'><input name='ingredients2' type='text' class='form-control' placeholder='Please Enter Any Ingredients One At A Time' </div>");
+        $(".ingredients").append("<br><div  class='col-md-6 mb-3' id='ing" + y + "'><input name='ingredient2' type='text' class='form-control' placeholder='Please Enter Any Ingredients One At A Time' </div>");
         if (y > 1) {
             $("#ing-remove").css("display", "inline-block");
         }
