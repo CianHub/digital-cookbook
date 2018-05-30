@@ -7,7 +7,7 @@ from bson.objectid import ObjectId
 from bson import SON
 from pprint import pprint
 from pymongo import ASCENDING, DESCENDING, TEXT
-from utils import get_pages, generate_pagination_links, get_countries, increment_field, get_current
+from utils import get_pages, generate_pagination_links, get_countries, increment_field
 from flask_wtf import FlaskForm, Form
 from wtforms import  TextField, SelectField, TextAreaField, validators, StringField, SubmitField
 from forms import Username, ReusableForm, Search
@@ -250,11 +250,11 @@ def view_recipe(username, recipe_id):
     #Get Voting Details of Selected Recipe
     the_recipe_vote = mongo.db.recipes.find_one({"recipeID":int(recipe_id)}, { 'upvotes': 1, 'downvotes': 1 })
     
-    """#Store Voting Details of Selected Recipe
+    #Store Voting Details of Selected Recipe
     current = []
     for i in the_recipe_vote:
-        current.append({i :the_recipe_vote[i]})"""
-    current = get_current(the_recipe_vote)
+        current.append({i :the_recipe_vote[i]})
+ 
     #If a Button is Pressed
     if request.method == "POST":
         
