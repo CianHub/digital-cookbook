@@ -264,8 +264,9 @@ def view_recipe(username, recipe_id):
             #Increment upvote
             upvote = increment_field('upvotes', current)
             
-            #Update Field
-            recipes.update({'recipeID': int(recipe_id) },{ '$set':{ 'upvotes' : upvote}})
+            if upvote != None:
+                #Update Field
+                recipes.update({'recipeID': int(recipe_id) },{ '$set':{ 'upvotes' : upvote}})
     
             return redirect('/' + username + '/recipes?limit=10&offset=0')
          
@@ -275,9 +276,10 @@ def view_recipe(username, recipe_id):
             #Increment upvote
             downvote = increment_field('downvotes', current)
             
-            #Update Field
-            recipes.update( {'recipeID': int(recipe_id) }, { '$set': { 'downvotes' : downvote } } )
-            
+            if downvote != None:
+                #Update Field
+                recipes.update( {'recipeID': int(recipe_id) }, { '$set': { 'downvotes' : downvote } } )
+        
             return redirect('/' + username + '/recipes?limit=10&offset=0')
          
     return render_template('view_recipe.html', recipe=the_recipe, username=username) 
