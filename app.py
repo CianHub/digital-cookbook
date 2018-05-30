@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template, redirect, request, url_for, jsonify, flash
 from flask_pymongo import PyMongo, pymongo
+from dotenv import load_dotenv, find_dotenv
 from bson.objectid import ObjectId
 from bson import SON
 from pprint import pprint
@@ -9,11 +10,13 @@ from functions import get_pages, generate_pagination_links, get_countries
 from flask_wtf import FlaskForm, Form
 from wtforms import  TextField, SelectField, TextAreaField, validators, StringField, SubmitField
 
-app = Flask(__name__)
-app.secret_key = 'some_secret'
+load_dotenv(find_dotenv())
 
-app.config["MONGO_DBNAME"] = 'cookbookdatabase'
-app.config["MONGO_URI"] ="mongodb://admin:Komplete8@ds119150.mlab.com:19150/cookbookdatabase"
+app = Flask(__name__)
+
+app.secret_key = os.getenv('SECRET')
+app.config["MONGO_DBNAME"] = os.getenv('DBNAME')
+app.config["MONGO_URI"] = os.getenv('URI')
 
 mongo = PyMongo(app)
 
