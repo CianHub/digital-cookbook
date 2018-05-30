@@ -7,7 +7,7 @@ from bson.objectid import ObjectId
 from bson import SON
 from pprint import pprint
 from pymongo import ASCENDING, DESCENDING, TEXT
-from utils import get_pages, generate_pagination_links, get_countries
+from utils import get_pages, generate_pagination_links, get_countries, increment_field
 from flask_wtf import FlaskForm, Form
 from wtforms import  TextField, SelectField, TextAreaField, validators, StringField, SubmitField
 from forms import Username, ReusableForm, Search
@@ -261,26 +261,22 @@ def view_recipe(username, recipe_id):
         #If Upvote
         if request.form['vote'] == "upvote":
             
-            #Increment Field
-            for x in current:
-                if x.keys() == ['upvotes']:
-                    new_vote = x['upvotes'] + 1
-                    
+            #Increment upvote
+            upvote = increment_field('upvotes', current)
+            
             #Update Field
-            recipes.update({'recipeID': int(recipe_id) },{ '$set':{ 'upvotes' : new_vote}})
+            recipes.update({'recipeID': int(recipe_id) },{ '$set':{ 'upvotes' : upvote}})
     
             return redirect('/' + username + '/recipes?limit=10&offset=0')
          
         #If Downvote 
         elif request.form['vote'] == "downvote":
             
-            #Increment Field
-            for x in current:
-                if x.keys() == ['downvotes']:
-                    new_vote = x['downvotes'] + 1
+            #Increment upvote
+            downvote = increment_field('downvotes', current)
             
             #Update Field
-            recipes.update( {'recipeID': int(recipe_id) }, { '$set': { 'downvotes' : new_vote } } )
+            recipes.update( {'recipeID': int(recipe_id) }, { '$set': { 'downvotes' : downvote } } )
             
             return redirect('/' + username + '/recipes?limit=10&offset=0')
          

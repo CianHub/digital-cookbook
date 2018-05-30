@@ -35,4 +35,10 @@ def get_countries():
             country_list.append((i['name'], i['name']))
         return country_list
 
+def increment_field(voteType, current):
+    #Increment Field
+    for x in current:
+        if x.keys() == [voteType]:
+            new_vote = x[voteType] + 1
+            return new_vote
     
