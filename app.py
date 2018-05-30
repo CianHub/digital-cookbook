@@ -249,14 +249,14 @@ def view_recipe(username, recipe_id):
     
     #Get Voting Details of Selected Recipe
     the_recipe_vote = mongo.db.recipes.find_one({"recipeID":int(recipe_id)}, { 'upvotes': 1, 'downvotes': 1 })
+    
+    #Store Voting Details of Selected Recipe
+    current = []
+    for i in the_recipe_vote:
+        current.append({i :the_recipe_vote[i]})
  
     #If a Button is Pressed
     if request.method == "POST":
-        
-        #Store Voting Details of Selected Recipe
-        current = []
-        for i in the_recipe_vote:
-            current.append({i :the_recipe_vote[i]})
         
         #If Upvote
         if request.form['vote'] == "upvote":
