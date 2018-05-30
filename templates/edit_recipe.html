@@ -28,7 +28,6 @@
 				</div>
 				<div class="form-row instructions">
 					<div class="col-md-12"><label class="text-center">Instructions</label></div>
-
 					{% for key in recipe.instructions %}
 					{% if key == recipe.instructions[0] %}
 					<div class="col-md-6 mb-3" id="ins{{loop.index}}">
@@ -39,7 +38,6 @@
                     </div>
                     {%else%}
                    	<div class="col-md-6 mb-3" id="ins{{loop.index}}">
-
 						<label>Step {{loop.index}}:</label>
 						<input name="instruction2" type="text" class="form-control instructionClass" id="validationCustom03" placeholder="Please Enter The Instructions One At A Time" value="{{ key }}">
 					</div>
@@ -53,8 +51,6 @@
 					<div class="col-6"><button type="button" id="ins-remove" name="remove" class="btn btn-danger" onclick="remove_instructions()">-</button>
 					</div>
 					</div>
-			
-
 				<br>
 				<div class="form-row allergens">
 					<div class="col-md-12"><label class="text-center">Allergens</label></div>
@@ -77,14 +73,14 @@
 				<div class="form-row ingredients">
 					<div class="col-md-12"><label class="text-center">Ingredients</label></div>
 					{% for key in recipe.ingredients %}
-					<div class="col-md-6 mb-3" id="ingredient{{loop.index}}">
+					<div class="col-md-6 mb-3" id="ing{{loop.index}}">
 						{% if key == recipe.ingredients[0] %}
 						{{ form.ingredient1(class_="form-control ingredientClass",placeholder="Please Enter The Ingredients One At A Time", type="text", id="validationCustom04", value=recipe.ingredients[0], autocomplete="off") }} 
 						{% for message in form.ingredient1.errors %}
                         <div class="invalid"> {{ message }}</div>
                         {% endfor %}
                         {%else %}
-						<input name="ingredient2" type="text" class="form-control ingredientClass" id="validationCustom04" placeholder="Please Enter The Ingredients One At A Time" value="{{key}}">
+						<input name="ing2" type="text" class="form-control ingredientClass" id="ing{{loop.index}}" placeholder="Please Enter The Ingredients One At A Time" value="{{key}}">
 						{% endif %}
 					</div>
 					{% endfor %}

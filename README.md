@@ -1,6 +1,6 @@
 # DIGITAL COOKBOOK 
 
-Digital Cookbook is a responsive web application that allows users to store, give feedback on, update, delete and access cooking recipes.
+Digital Cookbook is a responsive web application that allows users to create, give feedback on, update, delete and read cooking recipes.
 
 ## Features
 
@@ -39,9 +39,9 @@ The database schema for the app can be found at:
 
 I chose a MongoDB based NoSQL database to keep the database schema as simple possible. When drawing up the schema, the aim was to keep the most relevent fields while ensuring the user didn't feel restricted. The other major consideration was the data types, these were carefully selected in order to make accessing the values as easy as possible for CRUD functions while still being dynamic. 
 
-For example, as it is impossible to predict how many ingredients, instructions or allergens a recipe could have, a list format made the most sense from a 'create' perspective, this also made sense for 'update' operations as a list can be lengthened or shortened easily. Finally a list works well with 'read' functions as the individual indices of a list can be searched by the user.
+For example, as it is impossible to predict how many ingredients, instructions or allergens a recipe could have, a list format made the most sense from a 'create' perspective, this too made sense for 'update' operations as a list can be lengthened or shortened easily. Lastly a list also works well with 'read' operations as the individual indices of a list can be searched by the user.
 
-Finally there were smaller considerations such as readability taken into account. For example, a recipeID of '2' is a lot easier to read/remember than an _id of '5af74281f36d280cecd216c3' in a URL bar.
+Finally there were smaller considerations such as readability taken into account. For example, a recipeID of '2' is a lot easier to read/remember than an _id of '5af74281f36d280cecd216c3' in a URL bar!
 
 ## Deployment
 
