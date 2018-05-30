@@ -7,9 +7,10 @@ from bson.objectid import ObjectId
 from bson import SON
 from pprint import pprint
 from pymongo import ASCENDING, DESCENDING, TEXT
-from functions import get_pages, generate_pagination_links, get_countries
+from utils import get_pages, generate_pagination_links, get_countries
 from flask_wtf import FlaskForm, Form
 from wtforms import  TextField, SelectField, TextAreaField, validators, StringField, SubmitField
+from forms import Username, ReusableForm, Search
 
 load_dotenv(find_dotenv())
 
@@ -27,26 +28,6 @@ app.config["MONGO_URI"] = os.environ['URI']
 
 mongo = PyMongo(app)
 
-country_list = get_countries()
-
-class ReusableForm(Form):
-    
-    #Set up form
-    name = TextField('Recipe Name:', validators=[validators.DataRequired("*Required")])
-    description = TextField('Description:', validators=[validators.DataRequired("*Required")])
-    author = TextField('Author:', validators=[validators.DataRequired("*Required")])
-    instruction1 = TextField('Step 1:', validators=[validators.DataRequired("*Required")])
-    ingredient1 = TextField( validators=[validators.DataRequired("*Required")])
-    country = SelectField('Country of Origin', choices=country_list, validators=[validators.InputRequired(message=('*Required'))]) 
-
-class Username(Form):
-    #Set up form
-    username = TextField('Username:', validators=[validators.DataRequired("*Required")])
-
-class Search(Form):
-    #Set up form
-    search = TextField('Search:', validators=[validators.DataRequired("*Required")])
-
 @app.route('/', methods=['GET','POST'])
 def index():
     #Username form
@@ -60,7 +41,6 @@ def index():
 def recipes(username):
     
     # Get All Recipes
-    recipes = mongo.db.recipes
     all_recipes = recipes.find()
     
     # Pagination Settings
@@ -76,8 +56,7 @@ def recipes(username):
     #Get Pages And Generate URL List
     pages = get_pages(count, limit)
     url_list = generate_pagination_links(offset, limit, pages, 'recipes', 'null', username)
-    print(url_list)
-    
+
     #Get _id of Last Item on a Page
     dynamic_position = request.args.get('offset')
     starting_id = recipes.find().sort('_id')
@@ -281,8 +260,7 @@ def view_recipe(username, recipe_id):
             
             #Increment Field
             current[0]['upvotes'] += 1
-            pprint(current)
-            
+
             #Update Field
             recipes.update({'recipeID': int(recipe_id) }, 
                 { '$set': 
@@ -303,7 +281,6 @@ def view_recipe(username, recipe_id):
             
             return redirect('/' + username + '/recipes?limit=10&offset=0')
          
-            
     return render_template('view_recipe.html', recipe=the_recipe, username=username) 
         
 if __name__ == '__main__':

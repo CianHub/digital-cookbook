@@ -1,5 +1,5 @@
 import unittest
-from functions import get_pages, generate_pagination_links, get_countries
+from utils import get_pages, generate_pagination_links, get_countries
 
 class test_functions(unittest.TestCase):
     # Test Suite #
@@ -28,9 +28,13 @@ class test_functions(unittest.TestCase):
         
         assert type(generate_pagination_links(0, 10, 3, 'recipes', 'null','Kim')) is list
     
-    def test_get_counties(self):
+    def test_get_countries(self):
         # Test if function returns an array of countries  #
         
         assert type(get_countries()) is list
+        
+        country_list = get_countries()
+        self.assertEqual(country_list[0][1],"Choose a Country of Origin")
+        self.assertEqual(country_list[-1][1],"Zimbabwe")
         
         
