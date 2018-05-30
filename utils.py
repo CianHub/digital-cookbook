@@ -36,12 +36,11 @@ def get_countries():
         return country_list
 
 def get_current(recipes):
-     #Store Voting Details of Selected Recipe
+    #Store Voting Details of Selected Recipe
     current = []
     for i in recipes:
         current.append({i : recipes[i]})
         return current
-    
 
 def increment_field(voteType, current):
     #Increment Field

@@ -249,14 +249,14 @@ def view_recipe(username, recipe_id):
     
     #Get Voting Details of Selected Recipe
     the_recipe_vote = mongo.db.recipes.find_one({"recipeID":int(recipe_id)}, { 'upvotes': 1, 'downvotes': 1 })
-    
-    #Store Voting Details of Selected Recipe
-    current = []
-    for i in the_recipe_vote:
-        current.append({i :the_recipe_vote[i]})
  
     #If a Button is Pressed
     if request.method == "POST":
+        
+        #Store Voting Details of Selected Recipe
+        current = []
+        for i in the_recipe_vote:
+            current.append({i :the_recipe_vote[i]})
         
         #If Upvote
         if request.form['vote'] == "upvote":
@@ -264,9 +264,8 @@ def view_recipe(username, recipe_id):
             #Increment upvote
             upvote = increment_field('upvotes', current)
             
-            if upvote != None:
-                #Update Field
-                recipes.update({'recipeID': int(recipe_id) },{ '$set':{ 'upvotes' : upvote}})
+            #Update Field
+            recipes.update({'recipeID': int(recipe_id) },{ '$set':{ 'upvotes' : upvote}})
     
             return redirect('/' + username + '/recipes?limit=10&offset=0')
          
@@ -276,10 +275,9 @@ def view_recipe(username, recipe_id):
             #Increment upvote
             downvote = increment_field('downvotes', current)
             
-            if downvote != None:
-                #Update Field
-                recipes.update( {'recipeID': int(recipe_id) }, { '$set': { 'downvotes' : downvote } } )
-        
+            #Update Field
+            recipes.update( {'recipeID': int(recipe_id) }, { '$set': { 'downvotes' : downvote } } )
+            
             return redirect('/' + username + '/recipes?limit=10&offset=0')
          
     return render_template('view_recipe.html', recipe=the_recipe, username=username) 
