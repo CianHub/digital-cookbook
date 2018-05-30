@@ -16,11 +16,13 @@ load_dotenv(find_dotenv())
 
 app = Flask(__name__)
 
+#For Local .env file
 app.secret_key = os.getenv('SECRET')
 
 app.config["MONGO_DBNAME"] = os.getenv('DBNAME')
 app.config["MONGO_URI"] = os.getenv('URI')
 
+#For Heroku 
 app.secret_key = os.environ['SECRET']
 
 app.config["MONGO_DBNAME"] = os.environ['DBNAME']
@@ -41,6 +43,7 @@ def index():
 def recipes(username):
     
     # Get All Recipes
+    recipes = mongo.db.recipes
     all_recipes = recipes.find()
     
     # Pagination Settings
