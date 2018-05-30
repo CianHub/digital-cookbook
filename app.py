@@ -1,4 +1,5 @@
 import os
+from os import environ
 from flask import Flask, render_template, redirect, request, url_for, jsonify, flash
 from flask_pymongo import PyMongo, pymongo
 from dotenv import load_dotenv, find_dotenv
@@ -19,10 +20,10 @@ app.secret_key = os.getenv('SECRET')
 app.config["MONGO_DBNAME"] = os.getenv('DBNAME')
 app.config["MONGO_URI"] = os.getenv('URI')
 
-app.secret_key = os.environ('SECRET')
+app.secret_key = os.environ['SECRET']
 
-app.config["MONGO_DBNAME"] = os.environ('DBNAME')
-app.config["MONGO_URI"] = os.environ('URI')
+app.config["MONGO_DBNAME"] = os.environ['DBNAME']
+app.config["MONGO_URI"] = os.environ['URI']
 
 mongo = PyMongo(app)
 
