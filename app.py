@@ -262,14 +262,12 @@ def view_recipe(username, recipe_id):
         if request.form['vote'] == "upvote":
             
             #Increment Field
-            current[0]['upvotes'] += 1
-
+            for x in current:
+                if x.keys() == ['upvotes']:
+                    new_vote = x['upvotes'] + 1
+                    
             #Update Field
-            recipes.update({'recipeID': int(recipe_id) }, 
-                { '$set': 
-                    { 'upvotes' : current[0]['upvotes']  } 
-                }
-            )
+            recipes.update({'recipeID': int(recipe_id) },{ '$set':{ 'upvotes' : new_vote}})
     
             return redirect('/' + username + '/recipes?limit=10&offset=0')
          
@@ -277,10 +275,12 @@ def view_recipe(username, recipe_id):
         elif request.form['vote'] == "downvote":
             
             #Increment Field
-            current[1]['downvotes'] += 1
+            for x in current:
+                if x.keys() == ['downvotes']:
+                    new_vote = x['downvotes'] + 1
             
             #Update Field
-            recipes.update( {'recipeID': int(recipe_id) }, { '$set': { 'downvotes' : current[1]['downvotes'] } } )
+            recipes.update( {'recipeID': int(recipe_id) }, { '$set': { 'downvotes' : new_vote } } )
             
             return redirect('/' + username + '/recipes?limit=10&offset=0')
          
