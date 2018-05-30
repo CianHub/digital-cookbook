@@ -1,5 +1,5 @@
 import unittest
-from utils import get_pages, generate_pagination_links, get_countries
+from utils import get_pages, generate_pagination_links, get_countries, increment_field
 
 class test_functions(unittest.TestCase):
     # Test Suite #
@@ -37,4 +37,10 @@ class test_functions(unittest.TestCase):
         self.assertEqual(country_list[0][1],"Choose a Country of Origin")
         self.assertEqual(country_list[-1][1],"Zimbabwe")
         
+    def test_increment_field(self):
+        # Test if function returns an int  #
         
+        current = [{'upvotes': 2}, {'downvotes': 0}]
+        
+        assert type(increment_field('upvotes', current)) is int
+        self.assertEqual(increment_field('downvotes', current), 1)
