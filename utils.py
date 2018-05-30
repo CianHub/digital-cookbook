@@ -40,5 +40,5 @@ def increment_field(voteType, current):
     for x in current:
         if x.keys() == [voteType]:
             new_vote = x[voteType] + 1
-            return new_vote
+            return int(new_vote)
     

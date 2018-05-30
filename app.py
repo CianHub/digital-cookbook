@@ -254,9 +254,9 @@ def view_recipe(username, recipe_id):
     if request.method == "POST":
         
         #Store Voting Details of Selected Recipe
-        current = []
-        for i in the_recipe_vote:
-            current.append({i :the_recipe_vote[i]})
+        current = the_recipe_vote[:]
+        """for i in the_recipe_vote:
+            current.append({i :the_recipe_vote[i]})"""
         
         #If Upvote
         if request.form['vote'] == "upvote":
