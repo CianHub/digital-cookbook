@@ -20,12 +20,20 @@
                         {% for message in form.name.errors %}
                         <div class="invalid"> {{ message }}</div>
                         {% endfor %}
+                        {% with messages = get_flashed_messages() %}
+                        {% for item in messages %}
+                        {% if item %}
+                        <div class="invalid text-danger"> {{ item }}</div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endwith %}
                     </div>
                     <div class="col-md-6 mb-3">
                         {{ form.description.label }} {{ form.description(class_="form-control",placeholder="Recipe Description", type="text", id="validationCustom02", autocomplete="off") }} 
                         {% for message in form.description.errors %}
                         <div class="invalid"> {{ message }}</div>
                         {% endfor %}
+                        
                     </div>
                 </div>
                 <div class="form-row instructions">

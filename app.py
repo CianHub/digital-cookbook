@@ -139,25 +139,21 @@ def add_recipe(username):
    #Load form
     wtform = ReusableForm(request.form)
     
+    #Get The Recipe Names
+    the_recipe_name = mongo.db.recipes.find({},{ 'name': 1, '_id':0 })
+    name_list = list(the_recipe_name)
+    
+    #Get The Highest recipeID
+    the_recipe_id = mongo.db.recipes.find({},{ 'recipeID': 1, '_id':0 })
+    count_list = list(the_recipe_id)
+    sort_count_list = sorted(count_list)
+    
     if wtform.validate():
         
         # Get All Recipes
         recipes = mongo.db.recipes
         all_recipes = recipes.find()
         
-        #Get The Highest recipeID
-        count_list = []
-        for doc in all_recipes:
-            count_list.append(doc['recipeID'])
-            sort_count_list = sorted(count_list)
-        
-        #Get The Recipe Names
-        name_list = []
-        for doc in all_recipes:
-            name_list.append(doc['name'])
-            sort_name_list = sorted(name_list)
-        
-
         #Merge Additional Instruction Fields
         instructions = request.form.getlist('instruction2')
         instructions.insert(0, request.form['instruction1'])
@@ -170,25 +166,33 @@ def add_recipe(username):
         allergens = request.form.getlist('allergen2')
         if request.form['allergen1'] != '':
             allergens.insert(0, request.form['allergen1'])
-
         
-        #Insert New Recipe to Database
-        recipes.insert(
-        {
-        'name': request.form['name'],
-        'description': request.form['description'],
-        'instructions': instructions,
-        'upvotes': 0,
-        'downvotes': 0,
-        'ingredients': ingredients,
-        'allergens': allergens,
-        'country': request.form['country'],
-        'author': request.form['author'],
-        'recipeID': ((sort_count_list[-1] + 1))
-        })
+        #Check If Name Is Taken
+        for x in range(len(name_list)):
+            if request.form['name'] == name_list[x]['name']:
+                print('ye')
+                flash('That recipe already exists. Please enter another.')
+            elif x >= len(name_list):
+                #Insert New Recipe to Database
+                recipes.insert({
+                        'name': request.form['name'],
+                        'description': request.form['description'],
+                        'instructions': instructions,
+                        'upvotes': 0,
+                        'downvotes': 0,
+                        'ingredients': ingredients,
+                        'allergens': allergens,
+                        'country': request.form['country'],
+                        'author': request.form['author'],
+                         'recipeID': ((sort_count_list[-1]['recipeID'] + 1))
+                    })
+                return redirect('/' + username + '/' + 'search' + '/' + username + '?limit=10&offset=0')
+            else:
+                print('next')
+                continue
         
-        return redirect('/' + username + '/' + 'search' + '/' + username + '?limit=10&offset=0')
-
+                
+        
     #Render Add Recipe Page
     return render_template("add_recipe.html", form=wtform, errors=wtform.errors, username=username)
  
