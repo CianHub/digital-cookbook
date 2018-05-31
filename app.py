@@ -44,30 +44,27 @@ def recipes(username):
     
     # Get All Recipes
     recipes = mongo.db.recipes
-    all_recipes = recipes.find()
+    all_recipes = recipes.find().sort("_id", 1)
+    recipe_list = list(all_recipes)
     
     # Pagination Settings
-    offset = 0 
+    offset = 0
     limit = int(request.args.get('limit'))
     
     #Get Count
-    count_list = []
-    for doc in all_recipes:
-        count_list.append(doc)
-        count = len(count_list)
+    count = len(recipe_list)
     
     #Get Pages And Generate URL List
     pages = get_pages(count, limit)
     url_list = generate_pagination_links(offset, limit, pages, 'recipes', 'null', username)
 
     #Get _id of Last Item on a Page
-    dynamic_position = request.args.get('offset')
-    starting_id = recipes.find().sort('_id')
-    last_id = starting_id[int(dynamic_position)]['_id']
+    starting_position = request.args.get('offset')
+    last_id = recipe_list[int(starting_position)]['_id']
     
     #Sort Tables
-    sort_default = recipes.find({'_id' : {'$gte' : last_id}}).sort([( "upvotes",
-    pymongo.DESCENDING), ("downvotes",1 ), ('name', 1)]).limit(limit).limit(limit)
+    sort_default = recipes.find({'_id' : {'$gte' : last_id}}).sort([( "_id",
+    1)]).limit(limit)
     sort_country = recipes.find({'_id' : {'$gte' : last_id}}).sort([( "country", 1),
     ("name", 1 )]).limit(limit)
     sort_name = recipes.find({'_id' : {'$gte' : last_id}}).sort([("name",
