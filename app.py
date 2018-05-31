@@ -145,7 +145,10 @@ def add_recipe(username):
     
     #Get The Highest recipeID
     the_recipe_id = mongo.db.recipes.find({},{ 'recipeID': 1, '_id':0 })
-    count_list = sorted(list(the_recipe_id))
+    count_list = []
+    for x in the_recipe_id:
+        count_list.append(x)
+        sort_count_list = sorted(count_list)
 
     
     if wtform.validate():
@@ -184,7 +187,7 @@ def add_recipe(username):
                         'allergens': allergens,
                         'country': request.form['country'],
                         'author': request.form['author'],
-                         'recipeID': ((sort_count_list[-1]['recipeID'] + 1))
+                         'recipeID': ((sort_count_list[-1] + 1))
                     })
                 return redirect('/' + username + '/' + 'search' + '/' + username + '?limit=10&offset=0')
             else:
