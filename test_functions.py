@@ -1,5 +1,5 @@
 import unittest
-from utils import get_pages, generate_pagination_links, get_countries, increment_field
+from utils import get_pages, generate_pagination_links, get_countries, increment_field, search_name
 
 class test_functions(unittest.TestCase):
     # Test Suite #
@@ -44,3 +44,12 @@ class test_functions(unittest.TestCase):
         
         assert type(increment_field('upvotes', current)) is int
         self.assertEqual(increment_field('downvotes', current), 1)
+    
+    def test_search_name(self):
+        # Test if function finds name in a list of dict  #
+        
+        formName = 'Paul'
+        names = [{'name':'Paul'},{'name':'Bob'},{'name':'Sue'}]
+        
+        assert type(search_name(formName, names)) is bool
+        self.assertEqual(search_name(formName, names), True)

@@ -41,4 +41,8 @@ def increment_field(voteType, current):
         if x.keys() == [voteType]:
             new_vote = x[voteType] + 1
             return int(new_vote)
-    
+
+def search_name(formName, names):
+    for name in names:
+        if name['name'].title() == formName.title():
+            return True
