@@ -36,7 +36,7 @@
     function add_more_allergens() {
         //When the add button is pressed add a field
         x++;
-        $(".allergens").append("<br><div id ='allerg" + x + "' class='col-md-6 mb-3'><input name='allergen2' type='text' class='form-control' placeholder='Please Enter Any Allergens One At A Time' </div>");
+        $(".allergens").append("<div id ='allerg" + x + "' class='col-md-6 mb-3'><input name='allergen2' type='text' class='form-control' placeholder='Please Enter Any Allergens One At A Time' </div>");
         if (x > 1) {
             $("#allerg-remove").css("display", "inline-block");
         }
