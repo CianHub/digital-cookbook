@@ -7,7 +7,7 @@ from bson.objectid import ObjectId
 from bson import SON
 from pprint import pprint
 from pymongo import ASCENDING, DESCENDING, TEXT
-from utils import get_pages, generate_pagination_links, get_countries, increment_field, search_name
+from utils import get_pages, generate_pagination_links, get_countries, increment_field, search_name, get_highest_num
 from flask_wtf import FlaskForm, Form
 from wtforms import  TextField, SelectField, TextAreaField, validators, StringField, SubmitField
 from forms import Username, ReusableForm, Search
@@ -146,7 +146,8 @@ def add_recipe(username):
     
     #Get The Highest recipeID
     the_recipe_id = mongo.db.recipes.find({},{ 'recipeID': 1, '_id':0 })
-    count_list = sorted(list(the_recipe_id))
+    count_list = list(the_recipe_id)
+    new_id = get_highest_num(count_list)
    
     if wtform.validate():
         
