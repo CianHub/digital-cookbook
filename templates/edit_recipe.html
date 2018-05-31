@@ -39,7 +39,7 @@
                     {%else%}
                    	<div class="col-md-6 mb-3" id="ins{{loop.index}}">
 						<label>Step {{loop.index}}:</label>
-						<input name="instruction2" type="text" class="form-control instructionClass" id="validationCustom03" placeholder="Please Enter The Instructions One At A Time" value="{{ key }}">
+						<input name="instruction2" type="text" class="form-control instructionClass" id="validationCustom03" placeholder="Please Enter The Instructions One At A Time" value="{{ key }}"  autocomplete="off">
 					</div>
 					{% endif %}
 					{% endfor %}
@@ -61,13 +61,10 @@
 					{% endfor %}
 				</div>
 				<div class="form-row">
-					{% if not recipe.allergens %}
-					<div class="col-12"><button type="button" id="add-allerg" name="add-allerg" class="btn btn-success" onclick="add_more_allergens()">Add an Allergen +</button></div>
-					{% else %}
+				
 					<div class="col-6"><button type="button" id="add-allerg" name="add-allerg" class="btn btn-success" onclick="add_more_allergens()">+</button></div>
 
 					<div class="col-6"><button type="button" id="allerg-remove" name="allerg-remove" class="btn btn-danger" onclick="remove_allergens()">-</button></div>
-					{% endif %}
 				</div>
 				<br>
 				<div class="form-row ingredients">
