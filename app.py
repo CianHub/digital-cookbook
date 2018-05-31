@@ -5,7 +5,6 @@ from flask_pymongo import PyMongo, pymongo
 from dotenv import load_dotenv, find_dotenv
 from bson.objectid import ObjectId
 from bson import SON
-from pprint import pprint
 from pymongo import ASCENDING, DESCENDING, TEXT
 from utils import get_pages, generate_pagination_links, get_countries, increment_field, search_name
 from flask_wtf import FlaskForm, Form
@@ -143,7 +142,6 @@ def add_recipe(username):
     #Get The Highest recipeID
     the_recipe_id = mongo.db.recipes.find({},{ 'recipeID': 1, '_id':0 }).sort([('recipeID',pymongo.DESCENDING)])
     count_list = list(the_recipe_id)
-    print(count_list)
    
     if wtform.validate():
         
@@ -164,7 +162,6 @@ def add_recipe(username):
             allergens.insert(0, request.form['allergen1'])
         
         if search_name(request.form['name'], name_list):
-            print('ye')
             flash('That recipe already exists. Please enter another.')
         else:
             #Insert New Recipe to Database
