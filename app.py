@@ -7,7 +7,7 @@ from bson.objectid import ObjectId
 from bson import SON
 from pprint import pprint
 from pymongo import ASCENDING, DESCENDING, TEXT
-from utils import get_pages, generate_pagination_links, get_countries, increment_field, search_name, get_highest_num
+from utils import get_pages, generate_pagination_links, get_countries, increment_field, search_name
 from flask_wtf import FlaskForm, Form
 from wtforms import  TextField, SelectField, TextAreaField, validators, StringField, SubmitField
 from forms import Username, ReusableForm, Search
@@ -143,11 +143,10 @@ def add_recipe(username):
     the_recipe_name = mongo.db.recipes.find({},{ 'name': 1, '_id':0 })
     name_list = list(the_recipe_name)
     
-    
     #Get The Highest recipeID
-    the_recipe_id = mongo.db.recipes.find({},{ 'recipeID': 1, '_id':0 })
+    the_recipe_id = mongo.db.recipes.find({},{ 'recipeID': 1, '_id':0 }).sort([('recipeID',pymongo.DESCENDING)])
     count_list = list(the_recipe_id)
-    new_id = get_highest_num(count_list)
+    print(count_list)
    
     if wtform.validate():
         
@@ -182,7 +181,7 @@ def add_recipe(username):
                         'allergens': allergens,
                         'country': request.form['country'],
                         'author': request.form['author'],
-                         'recipeID': ((count_list[-1]['recipeID'] + 1))
+                        'recipeID': ((count_list[0]['recipeID'] + 1))
                     })
             return redirect('/' + username + '/' + 'search' + '/' + username + '?limit=10&offset=0')
  

@@ -47,9 +47,5 @@ def search_name(formName, names):
         if name['name'].title() == formName.title():
             return True
 
-def get_highest_num(numList):
-    sort = sorted(numList)
-    highest = sort[-1]['recipeID']
-    new_id = highest + 1
-    return new_id
+
     
