@@ -145,8 +145,8 @@ def add_recipe(username):
     
     #Get The Highest recipeID
     the_recipe_id = mongo.db.recipes.find({},{ 'recipeID': 1, '_id':0 })
-    count_list = list(the_recipe_id)
-    sort_count_list = sorted(count_list)
+    count_list = sorted(list(the_recipe_id))
+
     
     if wtform.validate():
         
