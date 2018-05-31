@@ -1,0 +1,35 @@
+{% extends "base.html"%} {% block content %}
+
+<div class="container-full-bg">
+  <div class="jumbotron ">
+    <div class="container">
+      <div class="row recipe-page text-center">
+        <div class="col-12 ">
+          <h1 class="text-uppercase">
+            <strong>Search Recipes</strong>
+          </h1>
+          <hr class="light">
+        </div>
+        <div class="col-12">
+          <form class="needs-validation" method="POST">
+            {{ form.csrf_token }}
+            <div class="form-row">
+              <div class="col-12">
+                {{ form.search(class_="form-control",placeholder="Search Recipes...", type="text", autocomplete="off") }} {% for message in form.search.errors %}
+                <div class="invalid"> {{ message }}</div>
+                {% endfor %}
+              </div>
+            </div>
+            <div class="row search-row">
+              <div class="col-12">
+                <button class="btn btn-success btn-l" type="submit" name="searchBtn">Search</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

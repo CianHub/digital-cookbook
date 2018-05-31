@@ -1,0 +1,130 @@
+{% extends "base.html"%} {% block content %}
+
+<div class="container-full-bg">
+	<div class="jumbotron ">
+		<div class="container">
+			<div class="row recipe-page">
+				<div class="col-lg-12 mx-auto">
+					<h1 class="text-uppercase">
+						<strong>Edit Recipe</strong>
+					</h1>
+					<hr class="light">
+				</div>
+			</div>
+			<form class="needs-validation" method="POST">
+				{{ form.csrf_token }}
+				<div class="form-row">
+					<div class="col-md-6 mb-3">
+						{{ form.name.label }} {{ form.name(class_="form-control", placeholder="Recipe Name", type="text", id="validationCustom01", value= recipe.name.title(), autocomplete="off") }} {% for message in form.name.errors %}
+						<div class="invalid"> {{ message }}</div>
+						{% endfor %}
+
+					</div>
+					<div class="col-md-6 mb-3">
+						{{ form.description.label }} {{ form.description(class_="form-control",placeholder="Recipe Description", type="text", id="validationCustom02", value=recipe.description, autocomplete="off") }} {% for message in form.description.errors %}
+						<div class="invalid"> {{ message }}</div>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="form-row instructions">
+					<div class="col-md-12"><label class="text-center">Instructions</label></div>
+					{% for key in recipe.instructions %}
+					{% if key == recipe.instructions[0] %}
+					<div class="col-md-6 mb-3" id="ins{{loop.index}}">
+					{{ form.instruction1.label }} {{ form.instruction1(class_="form-control instructionClass",placeholder="Please Enter The Instructions One At A Time", type="text", id="validationCustom03", value=recipe.instructions[0], autocomplete="off") }} 
+					{% for message in form.instruction1.errors %}
+                        <div class="invalid"> {{ message }}</div>
+                    {% endfor %}
+                    </div>
+                    {%else%}
+                   	<div class="col-md-6 mb-3" id="ins{{loop.index}}">
+						<label>Step {{loop.index}}:</label>
+						<input name="instruction2" type="text" class="form-control instructionClass" id="validationCustom03" placeholder="Please Enter The Instructions One At A Time" value="{{ key }}">
+					</div>
+					{% endif %}
+					{% endfor %}
+						</div>
+				<div class="form-row">
+					<div class="col-6"><button type="button" id="add-ins" name="add-more" class="btn btn-success" onclick="add_more_instructions()">+</button>
+					</div>
+
+					<div class="col-6"><button type="button" id="ins-remove" name="remove" class="btn btn-danger" onclick="remove_instructions()">-</button>
+					</div>
+					</div>
+				<br>
+				<div class="form-row allergens">
+					<div class="col-md-12"><label class="text-center">Allergens</label></div>
+					{% for key in recipe.allergens %}
+					<div class="col-md-6 mb-3" id="allerg{{loop.index}}">
+						<input name="allergen2" type="text" class="form-control allergenClass" id="validationCustom04" placeholder="Please Enter The Allergens One At A Time" value="{{key}}", autocomplete="off">
+					</div>
+					{% endfor %}
+				</div>
+				<div class="form-row">
+					{% if not recipe.allergens %}
+					<div class="col-12"><button type="button" id="add-allerg" name="add-allerg" class="btn btn-success" onclick="add_more_allergens()">Add an Allergen +</button></div>
+					{% else %}
+					<div class="col-6"><button type="button" id="add-allerg" name="add-allerg" class="btn btn-success" onclick="add_more_allergens()">+</button></div>
+
+					<div class="col-6"><button type="button" id="allerg-remove" name="allerg-remove" class="btn btn-danger" onclick="remove_allergens()">-</button></div>
+					{% endif %}
+				</div>
+				<br>
+				<div class="form-row ingredients">
+					<div class="col-md-12"><label class="text-center">Ingredients</label></div>
+					{% for key in recipe.ingredients %}
+					<div class="col-md-6 mb-3" id="ing{{loop.index}}">
+						{% if key == recipe.ingredients[0] %}
+						{{ form.ingredient1(class_="form-control ingredientClass",placeholder="Please Enter The Ingredients One At A Time", type="text", id="validationCustom04", value=recipe.ingredients[0], autocomplete="off") }} 
+						{% for message in form.ingredient1.errors %}
+                        <div class="invalid"> {{ message }}</div>
+                        {% endfor %}
+                        {%else %}
+						<input name="ingredient2" type="text" class="form-control ingredientClass" id="ing{{loop.index}}" placeholder="Please Enter The Ingredients One At A Time" value="{{key}}">
+						{% endif %}
+					</div>
+					{% endfor %}
+				</div>
+				<div class="form-row">
+
+					<div class="col-6"><button type="button" id="add-ing" name="add-ing" class="btn btn-success" onclick="add_more_ingredients()">+</button>
+					</div>
+					<div class="col-6"><button type="button" id="ing-remove" name="ing-remove" class="btn btn-danger" onclick="remove_ingredients()">-</button>
+					</div>
+				</div>
+				<br>
+				<div class="form-row">
+					<div class="col-md-6 mb-3">
+						{{ form.country.label }} {{ form.country(class_="form-control", value=recipe.country.title()) }} {% for message in form.country.errors %}
+						<div class="invalid"> {{ message }}</div>
+						{% endfor %}
+					</div>
+					<div class="col-md-6 mb-3">
+						{{ form.author.label }} {{ form.author(class_="form-control",placeholder="Author", type="text", id="validationCustom07", value=recipe.author, autocomplete="off") }} {% for message in form.author.errors %}
+						<div class="invalid"> {{ message }}</div>
+						{% endfor %}
+					</div>
+				</div>
+	
+		<br>
+		<div class="form-row">
+			<div class="col-6"><button class="btn btn-success" type="submit" name="action">Save Changes</button></div>
+			<div class="col-6"><a class="btn btn-danger" href="javascript:window.location.href=window.location.href" name="action">Undo Changes</a></div>
+		</div>
+		</form>
+	</div>
+</div>
+</div>
+
+<script src="/static/js/jquery.js"></script>
+<script src="/static/js/edit_recipe.js"></script>
+<script>
+	function make_selected() {
+		$("select option[value='Choose a Country of Origin']").attr('disabled', 'disabled');
+		$("select option[value={{ recipe.country.title()}}]").attr('selected', 'selected');
+	}
+	make_selected()
+</script>
+
+
+{% endblock %}
