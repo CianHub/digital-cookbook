@@ -1,7 +1,7 @@
     //Get number of each field
-    var i = $('.instructionClass').length
-    var x = $('.allergenClass').length
-    var y = $('.ingredientClass').length
+    var i = $('.instructionClass').length;
+    var x = $('.allergenClass').length;
+    var y = $('.ingredientClass').length;
 
     //If there is more than the relevent variable in each field show delete button
     if (i > 1) {
