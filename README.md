@@ -34,10 +34,9 @@ $ python -m unittest discover
 
 ## Database Schema
 
-The database schema for the app can be found at: 
-<database schema and planning doc/Digital Cookbook_ Database Schema.pdf>
+The database schema for the app can be found in the file Digital Cookbook_ Database Schema included in this repository.
 
-I chose a MongoDB based NoSQL database to keep the database schema as simple possible. When drawing up the schema, the aim was to keep the most relevent fields while ensuring the user didn't feel restricted. The other major consideration was the data types, these were carefully selected in order to make accessing the values as easy as possible for CRUD functions while still being dynamic. 
+A MongoDB based NoSQL database was chosen to keep the database schema as simple possible. When drawing up the schema, the aim was to keep the most relevent fields while ensuring the user didn't feel restricted. The other major consideration was the data types, these were carefully selected in order to make accessing the values as easy as possible for CRUD functions while still being dynamic. 
 
 For example, as it is impossible to predict how many ingredients, instructions or allergens a recipe could have, a list format made the most sense from a 'create' perspective, this too made sense for 'update' operations as a list can be lengthened or shortened easily. Lastly a list also works well with 'read' operations as the individual indices of a list can be searched by the user.
 
