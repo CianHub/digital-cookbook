@@ -410,3 +410,7 @@ th {
 #formDownvote {
     display: inline-block; 
 }
+
+.invalid {
+  text-align: left;
+}
