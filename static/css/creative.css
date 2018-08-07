@@ -1,4 +1,8 @@
+/*.................................GENERAL */
+
 body {
+  /* Styles for site background and fonts */
+  
   width: 100%;
   height: 100%;
   margin: 0;
@@ -8,31 +12,29 @@ body {
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
-}
-
-body {
   font-family: 'Helvetica Neue', Arial, sans-serif;
 }
 
 hr {
+  /* Styles for hr element controlling width and border */
+
   max-width: 50px;
   border-width: 3px;
   border-color: #F05F40;
 }
 
 hr.light {
+  /* Styles for hr element controlling color */
+  
   border-color: #fff;
 }
 
 a {
-  color: #F05F40;
+  /* styles for tranisitons on links */
+  
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
   transition: all 0.2s;
-}
-
-a:hover {
-  color: #f05f40;
 }
 
 h1,
@@ -41,50 +43,39 @@ h3,
 h4,
 h5,
 h6 {
+  /* fonts for headings */
+
   font-family: 'Helvetica Neue', Arial, sans-serif;
 }
 
-.bg-primary {
-  background-color: #F05F40 !important;
-}
-
-.bg-dark {
-  background-color: #212529 !important;
-}
-
-.text-faded {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-
-
-.section-heading {
-  margin-top: 0;
+th {
+   /* styles table heading */
+   
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 ::-moz-selection {
+  /* selection styles */
+  
   color: #fff;
   background: #212529;
   text-shadow: none;
 }
 
 ::selection {
+  /* selection styles */
+  
   color: #fff;
   background: #212529;
   text-shadow: none;
 }
 
-img::selection {
-  color: #fff;
-  background: transparent;
-}
-
-img::-moz-selection {
-  color: #fff;
-  background: transparent;
-}
+/*.................................NAVBAR */
 
 #mainNav {
+  /* Navbar font and border styles  */
+  
   border-bottom: 1px solid rgba(33, 37, 41, 0.1);
   background-color: #fff;
   font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -94,6 +85,8 @@ img::-moz-selection {
 }
 
 #mainNav .navbar-brand {
+  /* navbar site logo section font styles */
+  
   font-weight: 700;
   text-transform: uppercase;
   color: #F05F40;
@@ -102,11 +95,15 @@ img::-moz-selection {
 
 #mainNav .navbar-brand:focus,
 #mainNav .navbar-brand:hover {
+  /* navbar site logo hover and focus styles */
+   
   color: #f05f40;
 }
 
 #mainNav .navbar-nav>li.nav-item>a.nav-link,
 #mainNav .navbar-nav>li.nav-item>a.nav-link:focus {
+  /* navbar site links styles */
+  
   font-size: .9rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -115,184 +112,36 @@ img::-moz-selection {
 
 #mainNav .navbar-nav>li.nav-item>a.nav-link:hover,
 #mainNav .navbar-nav>li.nav-item>a.nav-link:focus:hover {
+  /* navbar site links hover and focus styles */
+  
   color: #F05F40;
 }
 
-#mainNav .navbar-nav>li.nav-item>a.nav-link.active,
-#mainNav .navbar-nav>li.nav-item>a.nav-link:focus.active {
-  color: #F05F40 !important;
-  background-color: transparent;
-}
+/*.................................HOME PAGE */
 
-#mainNav .navbar-nav>li.nav-item>a.nav-link.active:hover,
-#mainNav .navbar-nav>li.nav-item>a.nav-link:focus.active:hover {
-  background-color: transparent;
-}
-
-@media (min-width: 992px) {
-  #mainNav {
-    border-color: transparent;
-    background-color: transparent;
-  }
-  #mainNav .navbar-brand {
-    color: rgba(255, 255, 255, 0.7);
-  }
-  #mainNav .navbar-brand:focus,
-  #mainNav .navbar-brand:hover {
-    color: #fff;
-  }
-  #mainNav .navbar-nav>li.nav-item>a.nav-link {
-    padding: 0.5rem 1rem;
-  }
-  #mainNav .navbar-nav>li.nav-item>a.nav-link,
-  #mainNav .navbar-nav>li.nav-item>a.nav-link:focus {
-    color: rgba(255, 255, 255, 0.7);
-  }
-  #mainNav .navbar-nav>li.nav-item>a.nav-link:hover,
-  #mainNav .navbar-nav>li.nav-item>a.nav-link:focus:hover {
-    color: #fff;
-  }
-  #mainNav.navbar-shrink {
-    border-bottom: 1px solid rgba(33, 37, 41, 0.1);
-    background-color: #fff;
-  }
-  #mainNav.navbar-shrink .navbar-brand {
-    color: #F05F40;
-  }
-  #mainNav.navbar-shrink .navbar-brand:focus,
-  #mainNav.navbar-shrink .navbar-brand:hover {
-    color: #f05f40;
-  }
-  #mainNav.navbar-shrink .navbar-nav>li.nav-item>a.nav-link,
-  #mainNav.navbar-shrink .navbar-nav>li.nav-item>a.nav-link:focus {
-    color: #212529;
-  }
-  #mainNav.navbar-shrink .navbar-nav>li.nav-item>a.nav-link:hover,
-  #mainNav.navbar-shrink .navbar-nav>li.nav-item>a.nav-link:focus:hover {
-    color: #F05F40;
-  }
-}
-
-header {}
-
-header.recipes {
-  background-image: url("../img/recipes.jpg");
-  height: 100vh;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  background-position: center center;
-  background-repeat: repeat;
-  background-attachment: fixed;
-  align-items: center;
-  width: 100vw;
-  position: relative;
-}
-
-header.masthead hr {
-  margin-top: 30px;
+header.masthead {
+  /* padding styles */
+  
+  padding-top: 11.5em;
 }
 
 header.masthead h1 {
+  /* font size */
+  
   font-size: 2rem;
 }
 
 header.masthead p {
+  /* font weight */
+  
   font-weight: 300;
 }
 
-@media (min-width: 768px) {
-  header.masthead p {
-    font-size: 1.15rem;
-  }
-}
-
-@media (min-width: 992px) {
-
-  header.masthead h1 {
-    font-size: 3rem;
-  }
-}
-
-@media (min-width: 1200px) {
-  header.masthead h1 {
-    font-size: 4rem;
-  }
-}
-
-.service-box {
-  max-width: 400px;
-}
-
-.portfolio-box {
-  position: relative;
-  display: block;
-  max-width: 650px;
-  margin: 0 auto;
-}
-
-.portfolio-box .portfolio-box-caption {
-  position: absolute;
-  bottom: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  opacity: 0;
-  color: #fff;
-  background: rgba(240, 95, 64, 0.9);
-  -webkit-transition: all 0.2s;
-  -moz-transition: all 0.2s;
-  transition: all 0.2s;
-}
-
-.portfolio-box .portfolio-box-caption .portfolio-box-caption-content {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  transform: translateY(-50%);
-  text-align: center;
-}
-
-.portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-category,
-.portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-name {
-  padding: 0 15px;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-}
-
-.portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-category {
-  font-size: 14px;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-.portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-name {
-  font-size: 18px;
-}
-
-.portfolio-box:hover .portfolio-box-caption {
-  opacity: 1;
-}
-
-.portfolio-box:focus {
-  outline: none;
-}
-
-@media (min-width: 768px) {
-  .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-category {
-    font-size: 16px;
-  }
-  .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-name {
-    font-size: 22px;
-  }
-}
-
-.text-primary {
-  color: #F05F40 !important;
-}
+/*.................................BUTTONS */
 
 .btn {
+  /* styles button element removes border, set font */
+  
   font-weight: 700;
   text-transform: uppercase;
   border: none;
@@ -301,116 +150,191 @@ header.masthead p {
 }
 
 .btn-xl {
+  /* larger button then regular btn */
+  
   padding: 1rem 2rem;
 }
 
-.btn-primary {
-  background-color: #F05F40;
-  border-color: #F05F40;
+.btn.btn-square {
+  /* a square shaped button */
+  
+  border-radius: 0;
 }
 
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active {
-  color: #fff;
-  background-color: #ee4b28 !important;
-}
-
-.btn-primary:active,
-.btn-primary:focus {
-  box-shadow: 0 0 0 0.2rem rgba(240, 95, 64, 0.5) !important;
-}
+/*.................................ADD/EDIT RECIPE PAGE */
 
 #ins-remove {
+  /* default setting for the remove instruction button */
+  
   display: none;
 }
 
 #ing-remove {
+  /* default setting for the remove ingredient button */
+
   display: none;
 }
 
 #allerg-remove {
+  /* default setting for the remove allergen button */
+
   display: none;
 }
 
-.hidden {
-  display: none;
-}
+/*.................................VIEW RECIPE PAGE */
 
 #ingredients-list {
+  /* remove list styling */
+
   list-style-type: none;
 }
 
 .viewdiv {
+  /* set padding */
+
   padding-top: 2rem;
 }
 
 .topdiv {
+  /* set padding */
+  
   padding-top: 5rem;
 }
 
-
-header.masthead {
-  padding-top: 11.5em;
+.vote {
+  /* hide elements in this class */
+  
+  display: none;
 }
 
+#formUpvote {
+  /* set the element to display next to other elements with inline-block */
+  
+    display: inline-block; 
+}
+#formDownvote {
+  /* set the element to display next to other elements with inline-block */
+  
+    display: inline-block; 
+}
+
+/*.................................RECIPE TABLES */
+
 .recipe-page {
+  /* set padding */
+  
   padding-top: 5em;
 
 }
 
 .sortButton {
+  /* enable the user to know the button is clickable via cursor feedback */
+  
   cursor: pointer;
 }
 
 #sortDefault {
+  /* default setting for the sort default table */
+  
   display: inline-block;
 }
 
 #sortAuthor {
+  /* default setting for the sort author table */
+  
   display: none;
 }
 
 #sortName{
+  /* default setting for the sort name table */
+  
   display: none;
 }
 
 #sortUpvotes{
+  /* default setting for the sort upvotes table */
+  
   display: none;
 }
 
 #sortDownvotes {
+  /* default setting for the sort downvotes table */
+  
   display: none;
 }
 
 #sortCountry {
+  /* default setting for the sort country table */
+  
   display: none;
 }
 
-th {
-  white-space: nowrap;
-  overflow: hidden;
+/*.................................MEDIA QUERIES */
+
+@media (min-width: 768px) {
+  
+  header.masthead p {
+    /* set font size */
+    
+    font-size: 1.15rem;
+  }
 }
 
-.search-row {
-  padding-top: 1em;
+@media (min-width: 992px) {
 
+  /* Navbar */
+  
+  #mainNav {
+    /* set navbar background to be transparent */
+    
+    border-color: transparent;
+    background-color: transparent;
+  }
+  #mainNav .navbar-brand {
+    /* set color of navbar brand */
+    
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  #mainNav .navbar-brand:focus,
+  #mainNav .navbar-brand:hover {
+    /* set color of navbar brand when hovered/focused on */
+    
+    color: #fff;
+  }
+  
+  #mainNav .navbar-nav>li.nav-item>a.nav-link {
+     /* set padding between nav-links */
+     
+    padding: 0.5rem 1rem;
+  }
+  
+  #mainNav .navbar-nav>li.nav-item>a.nav-link,
+  #mainNav .navbar-nav>li.nav-item>a.nav-link:focus {
+     /* set color of nav-links */
+     
+    color: rgba(255, 255, 255, 0.7);
+  }
+  #mainNav .navbar-nav>li.nav-item>a.nav-link:hover,
+  #mainNav .navbar-nav>li.nav-item>a.nav-link:focus:hover {
+    /* set color of nav-links upon interaction */
+    
+    color: #fff;
+  }
+  
+  /* Home Page */
+  
+  header.masthead h1 {
+    /* set font size */
+    
+    font-size: 3rem;
+  }
 }
 
-.btn.btn-square {
-  border-radius: 0;
-}
-.vote {
-  display: none;
-}
-
-#formUpvote {
-    display: inline-block; 
-}
-#formDownvote {
-    display: inline-block; 
-}
-
-.invalid {
-  text-align: left;
+@media (min-width: 1200px) {
+  header.masthead h1 {
+    /* set font size */
+     
+    font-size: 4rem;
+  }
 }
