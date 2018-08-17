@@ -141,7 +141,7 @@ The preliminary planning conducted before development began (including user stor
 
 This project was deployed to Heroku. Inside Heroku's config vars the DBNAME, IP, PORT, SECRET (secret key) and URI (MongoDB uri) were set. 
 
-The Project can be viewed at: <https://riddle-me-this-game.herokuapp.com/>
+The project can be viewed at: <https://online-cookbook-project.herokuapp.com/>
 
 ## Installation
 
